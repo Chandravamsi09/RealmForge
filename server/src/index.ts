@@ -7,6 +7,7 @@ import { authRouter } from './auth/auth.routes';
 import { matchmakingRouter } from './matchmaking/matchmaking.routes';
 import { persistenceRouter } from './persistence/persistence.routes';
 import { economyRouter } from './economy/economy.routes';
+import { adminRouter } from './admin/admin.routes';
 import { setupSocketHandler } from './game/SocketHandler';
 import { defaultMatchmaker } from './matchmaking/Matchmaker';
 
@@ -40,6 +41,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/matchmaking', matchmakingRouter);
 app.use('/api/economy', economyRouter);
 app.use('/api', persistenceRouter);
+app.use('/api', adminRouter);
 
 const PORT = process.env.PORT || 4000;
 
@@ -66,3 +68,4 @@ export * from './persistence/MatchRepository';
 export * from './persistence/StatsRepository';
 export * from './persistence/LeaderboardRepository';
 export * from './economy/InventoryRepository';
+export * from './admin/AdminRepository';

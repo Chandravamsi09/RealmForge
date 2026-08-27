@@ -15,6 +15,7 @@ export interface IUserRepository {
   getPasswordHash(userId: string): Promise<string | null>;
   updateElo(userId: string, newElo: number): Promise<void>;
   updateProfile(userId: string, updates: Partial<UserProfile>): Promise<UserProfile>;
+  setBanned(userId: string, isBanned: boolean): Promise<void>;
 }
 
 // In-Memory Repository implementation for tests and standalone mode
@@ -85,6 +86,14 @@ export class InMemoryUserRepository implements IUserRepository {
     const user = this.users.get(userId);
     if (user) {
       user.eloRating = newElo;
+      user.updatedAt = new Date().toISOString();
+    }
+  }
+
+  async setBanned(userId: string, isBanned: boolean): Promise<void> {
+    const user = this.users.get(userId);
+    if (user) {
+      user.isBanned = isBanned;
       user.updatedAt = new Date().toISOString();
     }
   }
@@ -211,6 +220,13 @@ export class PostgresUserRepository implements IUserRepository {
     await this.dbClient.query(
       'UPDATE users SET elo_rating = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
       [newElo, userId],
+    );
+  }
+
+  async setBanned(userId: string, isBanned: boolean): Promise<void> {
+    await this.dbClient.query(
+      'UPDATE users SET is_banned = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
+      [isBanned, userId],
     );
   }
 
