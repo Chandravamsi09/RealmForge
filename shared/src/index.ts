@@ -40,6 +40,7 @@ export * from './waves/EnemyDefinitions';
 export * from './waves/WaveScaling';
 export * from './waves/WaveGenerator';
 export * from './waves/WaveSpawnerSystem';
+export * from './waves/EnemyMovementSystem';
 
 // Multiplayer
 export * from './multiplayer/types';

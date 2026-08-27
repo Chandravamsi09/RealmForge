@@ -29,6 +29,7 @@ describe('Persistence Layer Unit Tests', () => {
     beforeEach(() => {
       matchRepo = new InMemoryMatchRepository();
       statsRepo = new InMemoryStatsRepository();
+      statsRepo.clear();
       leaderboardRepo = new InMemoryLeaderboardRepository(statsRepo);
     });
 

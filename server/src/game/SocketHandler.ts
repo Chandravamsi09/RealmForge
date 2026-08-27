@@ -45,9 +45,29 @@ export function setupSocketHandler(
       currentRoomId = room.roomId;
       socket.join(room.roomId);
 
+      // Auto start solo room game loop immediately
+      if (mode === GameMode.SOLO) {
+        room.start();
+      }
+
       if (callback) {
         callback({ success: true, roomId: room.roomId, session });
       }
+    });
+
+    socket.on('start_game', (callback?: (res: any) => void) => {
+      if (!currentRoomId) {
+        if (callback) callback({ success: false, error: 'Not in a room' });
+        return;
+      }
+      const room = roomManager.getRoom(currentRoomId);
+      if (!room) {
+        if (callback) callback({ success: false, error: 'Room not found' });
+        return;
+      }
+
+      room.start();
+      if (callback) callback({ success: true });
     });
 
     socket.on('join_room', (data: { roomId: string }, callback?: (res: any) => void) => {

@@ -4,6 +4,7 @@ import {
   GameMap,
   FOREST_CROSSING_MAP,
   WaveSpawnerSystem,
+  EnemyMovementSystem,
   TowerTargetingSystem,
   ProjectileSystem,
   BuffSystem,
@@ -59,6 +60,7 @@ export class GameRoom {
     );
 
     this.world.addSystem(this.spawnerSystem);
+    this.world.addSystem(new EnemyMovementSystem());
     this.world.addSystem(new TowerTargetingSystem());
     this.world.addSystem(new ProjectileSystem());
     this.world.addSystem(new BuffSystem());
@@ -82,6 +84,13 @@ export class GameRoom {
         for (const player of this.players.values()) {
           player.gold += payload.bonusGold;
         }
+      }
+    });
+
+    this.world.on('nexusDamaged', payload => {
+      this.eventBuffer.push({ type: 'NEXUS_DAMAGED', payload });
+      for (const player of this.players.values()) {
+        player.health = Math.max(0, player.health - (payload.damage || 1));
       }
     });
 

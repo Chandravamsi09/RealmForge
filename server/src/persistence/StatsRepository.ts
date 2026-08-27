@@ -19,6 +19,62 @@ export interface IStatsRepository {
 export class InMemoryStatsRepository implements IStatsRepository {
   private stats: Map<string, PlayerStats> = new Map();
 
+  constructor() {
+    // Pre-seed sample champions for rich leaderboard & profile views
+    this.stats.set('sample_1', {
+      userId: 'sample_1',
+      username: 'ArchmageVanguard',
+      avatar: 'avatar_1',
+      eloRating: 2450,
+      totalMatches: 210,
+      wins: 184,
+      losses: 26,
+      winRate: 88,
+      highestWave: 55,
+      totalKills: 14500,
+      totalDamageDealt: 1250000,
+    });
+    this.stats.set('sample_2', {
+      userId: 'sample_2',
+      username: 'StormForged',
+      avatar: 'avatar_2',
+      eloRating: 2310,
+      totalMatches: 170,
+      wins: 142,
+      losses: 28,
+      winRate: 84,
+      highestWave: 48,
+      totalKills: 11200,
+      totalDamageDealt: 980000,
+    });
+    this.stats.set('sample_3', {
+      userId: 'sample_3',
+      username: 'ShadowSniper',
+      avatar: 'avatar_3',
+      eloRating: 2180,
+      totalMatches: 155,
+      wins: 119,
+      losses: 36,
+      winRate: 77,
+      highestWave: 42,
+      totalKills: 8900,
+      totalDamageDealt: 740000,
+    });
+    this.stats.set('sample_4', {
+      userId: 'sample_4',
+      username: 'IronBastion',
+      avatar: 'avatar_4',
+      eloRating: 1980,
+      totalMatches: 120,
+      wins: 95,
+      losses: 25,
+      winRate: 79,
+      highestWave: 36,
+      totalKills: 6500,
+      totalDamageDealt: 510000,
+    });
+  }
+
   calculateEloDelta(playerElo: number, opponentElo: number, won: boolean, kFactor: number = 32): number {
     const expectedScore = 1 / (1 + Math.pow(10, (opponentElo - playerElo) / 400));
     const actualScore = won ? 1 : 0;

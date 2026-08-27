@@ -7,7 +7,7 @@ import { LobbyScreen } from './components/LobbyScreen';
 import { LeaderboardScreen } from './components/LeaderboardScreen';
 import { StoreScreen } from './components/StoreScreen';
 import { SettingsModal } from './components/SettingsModal';
-import { GameHud } from './components/GameHud';
+import { GameHudTop, TowerHotbar, TowerInspector } from './components/GameHud';
 import { Minimap } from './components/Minimap';
 import { InGameChat } from './components/InGameChat';
 import { PhaserGame } from './game/PhaserGame';
@@ -22,7 +22,7 @@ const MainAppContent: React.FC = () => {
   const [isInMatch, setIsInMatch] = useState<boolean>(false);
 
   // In-Match State
-  const [selectedTowerToBuild, setSelectedTowerToBuild] = useState<TowerType | null>(null);
+  const [selectedTowerToBuild, setSelectedTowerToBuild] = useState<TowerType | null>(TowerType.ARCHER);
   const [selectedEntityId, setSelectedEntityId] = useState<number | null>(null);
 
   if (isLoading) {
@@ -48,7 +48,8 @@ const MainAppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 overflow-hidden font-sans">
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 overflow-hidden font-sans select-none">
+      {/* Top Navbar */}
       <Navbar
         currentTab={currentTab}
         onSelectTab={tab => {
@@ -58,42 +59,49 @@ const MainAppContent: React.FC = () => {
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
 
-      <main className="flex-1 relative overflow-y-auto">
+      <main className="flex-1 relative flex flex-col min-h-0 overflow-hidden">
         {isInMatch || (currentRoomId && currentTab === 'game') ? (
-          /* Active Match Arena View */
-          <div className="relative w-full h-[calc(100vh-4rem)] flex items-center justify-center p-4">
-            {/* Phaser Game Canvas */}
-            <div className="relative max-w-4xl w-full h-full flex items-center justify-center">
-              <PhaserGame
-                selectedTowerToBuild={selectedTowerToBuild}
-                onSelectEntity={id => setSelectedEntityId(id)}
-              />
+          /* Active Match Arena View - Clean Docked Layout */
+          <div className="flex-1 flex flex-col w-full h-full min-h-0 bg-slate-950">
+            {/* Top Match HUD Bar */}
+            <GameHudTop onLeaveMatch={handleExitMatch} />
 
-              {/* HUD Overlays */}
-              <GameHud
-                selectedTowerToBuild={selectedTowerToBuild}
-                onSelectTowerToBuild={setSelectedTowerToBuild}
-                selectedEntityId={selectedEntityId}
-              />
+            {/* Arena Main Body: 3-column Layout */}
+            <div className="flex-1 flex items-center justify-center p-3 gap-3 min-h-0 overflow-hidden">
+              {/* Left Column: Minimap & In-Game Chat */}
+              <div className="hidden lg:flex flex-col space-y-2.5 w-64 h-full justify-between py-1 flex-shrink-0">
+                <Minimap />
+                <InGameChat />
+              </div>
+
+              {/* Center Column: Game Canvas + Bottom Hotbar */}
+              <div className="flex-1 flex flex-col items-center justify-center h-full max-w-4xl space-y-2 min-h-0">
+                <div className="flex-1 w-full flex items-center justify-center min-h-0">
+                  <PhaserGame
+                    selectedTowerToBuild={selectedTowerToBuild}
+                    onSelectEntity={id => setSelectedEntityId(id)}
+                  />
+                </div>
+
+                {/* Bottom Hotbar directly below canvas */}
+                <TowerHotbar
+                  selectedTowerToBuild={selectedTowerToBuild}
+                  onSelectTowerToBuild={setSelectedTowerToBuild}
+                />
+              </div>
+
+              {/* Right Column: Selected Tower / Placement Inspector */}
+              <div className="hidden md:flex flex-col w-64 h-full justify-start py-1 flex-shrink-0">
+                <TowerInspector
+                  selectedEntityId={selectedEntityId}
+                  selectedTowerToBuild={selectedTowerToBuild}
+                />
+              </div>
             </div>
-
-            {/* Left/Right Floating Panels: Chat & Minimap */}
-            <div className="hidden lg:flex flex-col space-y-4 absolute left-6 bottom-6 z-20">
-              <Minimap />
-              <InGameChat />
-            </div>
-
-            {/* Exit Match button */}
-            <button
-              onClick={handleExitMatch}
-              className="absolute top-4 right-4 z-30 px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 rounded-lg text-xs font-bold transition"
-            >
-              Surrender / Leave
-            </button>
           </div>
         ) : (
           /* Portal Tabs */
-          <div className="py-2 sm:py-3">
+          <div className="py-2 sm:py-3 overflow-y-auto flex-1">
             {currentTab === 'lobby' && <LobbyScreen onStartMatch={handleStartMatch} />}
             {currentTab === 'leaderboard' && <LeaderboardScreen />}
             {currentTab === 'store' && <StoreScreen />}
