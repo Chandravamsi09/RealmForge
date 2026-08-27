@@ -4,7 +4,9 @@ import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { REALMFORGE_VERSION } from '@realmforge/shared';
 import { authRouter } from './auth/auth.routes';
+import { matchmakingRouter } from './matchmaking/matchmaking.routes';
 import { setupSocketHandler } from './game/SocketHandler';
+import { defaultMatchmaker } from './matchmaking/Matchmaker';
 
 const app = express();
 const httpServer = createServer(app);
@@ -18,8 +20,9 @@ const io = new SocketIOServer(httpServer, {
 app.use(cors());
 app.use(express.json());
 
-// Initialize Socket.IO Multiplayer Game Handlers
+// Initialize Socket.IO Multiplayer Game Handlers & Matchmaker worker
 setupSocketHandler(io);
+defaultMatchmaker.setIo(io);
 
 // Base health endpoint
 app.get('/health', (_req, res) => {
@@ -32,6 +35,7 @@ app.get('/health', (_req, res) => {
 
 // Mount Routes
 app.use('/api/auth', authRouter);
+app.use('/api/matchmaking', matchmakingRouter);
 
 const PORT = process.env.PORT || 4000;
 
@@ -52,3 +56,5 @@ export * from './db/migrations';
 export * from './game/GameRoom';
 export * from './game/RoomManager';
 export * from './game/SocketHandler';
+export * from './matchmaking/RedisClient';
+export * from './matchmaking/Matchmaker';
