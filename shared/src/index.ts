@@ -43,3 +43,6 @@ export * from './waves/WaveSpawnerSystem';
 
 // Multiplayer
 export * from './multiplayer/types';
+
+// Persistence & Stats
+export * from './persistence/types';
