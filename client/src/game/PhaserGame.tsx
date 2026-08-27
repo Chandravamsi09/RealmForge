@@ -30,8 +30,8 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
       height: 12 * 32, // 384px
       backgroundColor: '#0f172a',
       scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
+        mode: Phaser.Scale.NONE,
+        autoCenter: Phaser.Scale.NO_CENTER,
       },
       scene: [BootScene, MainGameScene],
     };
@@ -74,8 +74,11 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
   }, [latestSnapshot]);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center bg-slate-950/80 rounded-xl border border-slate-700/60 overflow-hidden shadow-2xl">
-      <div ref={containerRef} className="rounded-lg overflow-hidden border border-slate-800" />
+    <div className="flex items-center justify-center">
+      <div
+        ref={containerRef}
+        className="w-[512px] h-[384px] rounded-xl overflow-hidden border border-slate-700/80 shadow-2xl bg-slate-900 flex-shrink-0"
+      />
     </div>
   );
 };
