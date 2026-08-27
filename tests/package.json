@@ -1,0 +1,25 @@
+{
+  "name": "@realmforge/tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=tests/src/unit",
+    "test:integration": "jest --testPathPattern=tests/src/integration --runInBand",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.49.1",
+    "@realmforge/server": "*",
+    "@realmforge/shared": "*",
+    "supertest": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  }
+}
