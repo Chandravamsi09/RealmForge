@@ -34,3 +34,9 @@ export * from './combat/TargetAcquisition';
 export * from './combat/systems/TowerTargetingSystem';
 export * from './combat/systems/ProjectileSystem';
 export * from './combat/systems/BuffSystem';
+
+// Wave System
+export * from './waves/EnemyDefinitions';
+export * from './waves/WaveScaling';
+export * from './waves/WaveGenerator';
+export * from './waves/WaveSpawnerSystem';
