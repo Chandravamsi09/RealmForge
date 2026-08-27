@@ -93,7 +93,7 @@ const MainAppContent: React.FC = () => {
           </div>
         ) : (
           /* Portal Tabs */
-          <div className="py-6">
+          <div className="py-2 sm:py-3">
             {currentTab === 'lobby' && <LobbyScreen onStartMatch={handleStartMatch} />}
             {currentTab === 'leaderboard' && <LeaderboardScreen />}
             {currentTab === 'store' && <StoreScreen />}
