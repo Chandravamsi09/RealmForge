@@ -4,11 +4,14 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@realmforge/shared": ["../shared/src"],
+      "@realmforge/shared/*": ["../shared/src/*"],
+      "@realmforge/server": ["../server/src"],
+      "@realmforge/server/*": ["../server/src/*"]
+    }
   },
-  "include": ["src/**/*"],
-  "references": [
-    { "path": "../shared" },
-    { "path": "../server" }
-  ]
+  "include": ["src/**/*"]
 }
