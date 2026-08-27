@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { REALMFORGE_VERSION } from '@realmforge/shared';
 import { authRouter } from './auth/auth.routes';
+import { setupSocketHandler } from './game/SocketHandler';
 
 const app = express();
 const httpServer = createServer(app);
@@ -16,6 +17,9 @@ const io = new SocketIOServer(httpServer, {
 
 app.use(cors());
 app.use(express.json());
+
+// Initialize Socket.IO Multiplayer Game Handlers
+setupSocketHandler(io);
 
 // Base health endpoint
 app.get('/health', (_req, res) => {
@@ -45,3 +49,6 @@ export * from './auth/password';
 export * from './auth/user.repository';
 export * from './db/connection';
 export * from './db/migrations';
+export * from './game/GameRoom';
+export * from './game/RoomManager';
+export * from './game/SocketHandler';
