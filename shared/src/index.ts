@@ -21,3 +21,8 @@ export * from './engine/loop/FixedStepLoop';
 
 // Sync Types
 export * from './engine/sync/TickSyncTypes';
+
+// Map & Pathfinding
+export * from './map/TileGrid';
+export * from './map/AStarPathfinder';
+export * from './map/GameMap';
