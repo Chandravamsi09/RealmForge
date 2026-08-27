@@ -46,3 +46,6 @@ export * from './multiplayer/types';
 
 // Persistence & Stats
 export * from './persistence/types';
+
+// Economy & Inventory
+export * from './economy/types';

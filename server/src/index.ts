@@ -6,6 +6,7 @@ import { REALMFORGE_VERSION } from '@realmforge/shared';
 import { authRouter } from './auth/auth.routes';
 import { matchmakingRouter } from './matchmaking/matchmaking.routes';
 import { persistenceRouter } from './persistence/persistence.routes';
+import { economyRouter } from './economy/economy.routes';
 import { setupSocketHandler } from './game/SocketHandler';
 import { defaultMatchmaker } from './matchmaking/Matchmaker';
 
@@ -37,6 +38,7 @@ app.get('/health', (_req, res) => {
 // Mount Routes
 app.use('/api/auth', authRouter);
 app.use('/api/matchmaking', matchmakingRouter);
+app.use('/api/economy', economyRouter);
 app.use('/api', persistenceRouter);
 
 const PORT = process.env.PORT || 4000;
@@ -63,3 +65,4 @@ export * from './matchmaking/Matchmaker';
 export * from './persistence/MatchRepository';
 export * from './persistence/StatsRepository';
 export * from './persistence/LeaderboardRepository';
+export * from './economy/InventoryRepository';
