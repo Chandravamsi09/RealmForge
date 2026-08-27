@@ -26,3 +26,11 @@ export * from './engine/sync/TickSyncTypes';
 export * from './map/TileGrid';
 export * from './map/AStarPathfinder';
 export * from './map/GameMap';
+
+// Combat & Towers
+export * from './combat/TowerDefinitions';
+export * from './combat/DamageCalculator';
+export * from './combat/TargetAcquisition';
+export * from './combat/systems/TowerTargetingSystem';
+export * from './combat/systems/ProjectileSystem';
+export * from './combat/systems/BuffSystem';
