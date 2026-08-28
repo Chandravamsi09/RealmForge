@@ -2,18 +2,23 @@ import request from 'supertest';
 import { app } from '@realmforge/server';
 
 describe('Auth API Integration Tests', () => {
+  const rand = Math.floor(Math.random() * 1000000);
+
   it('should successfully sign up a new user and retrieve profile', async () => {
+    const uname = `ArcaneMage_${rand}`;
+    const email = `mage_${rand}@realmforge.gg`;
+
     const signupRes = await request(app)
       .post('/api/auth/signup')
       .send({
-        username: 'ArcaneMage',
-        email: 'mage@realmforge.gg',
+        username: uname,
+        email,
         password: 'SpellsAndMagic123',
       });
 
     expect(signupRes.status).toBe(201);
     expect(signupRes.body.user).toBeDefined();
-    expect(signupRes.body.user.username).toBe('ArcaneMage');
+    expect(signupRes.body.user.username).toBe(uname);
     expect(signupRes.body.tokens.accessToken).toBeDefined();
 
     const token = signupRes.body.tokens.accessToken;
@@ -24,7 +29,7 @@ describe('Auth API Integration Tests', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(meRes.status).toBe(200);
-    expect(meRes.body.user.username).toBe('ArcaneMage');
+    expect(meRes.body.user.username).toBe(uname);
     expect(meRes.body.user.profile.gold).toBe(500);
   });
 
@@ -35,12 +40,15 @@ describe('Auth API Integration Tests', () => {
   });
 
   it('should log in an existing user and return tokens', async () => {
+    const uname = `Defender_${rand}`;
+    const email = `defender_${rand}@realmforge.gg`;
+
     // Signup first
     await request(app)
       .post('/api/auth/signup')
       .send({
-        username: 'TowerDefender',
-        email: 'defender@realmforge.gg',
+        username: uname,
+        email,
         password: 'Password999',
       });
 
@@ -48,21 +56,24 @@ describe('Auth API Integration Tests', () => {
     const loginRes = await request(app)
       .post('/api/auth/login')
       .send({
-        usernameOrEmail: 'TowerDefender',
+        usernameOrEmail: uname,
         password: 'Password999',
       });
 
     expect(loginRes.status).toBe(200);
     expect(loginRes.body.tokens.accessToken).toBeDefined();
-    expect(loginRes.body.user.username).toBe('TowerDefender');
+    expect(loginRes.body.user.username).toBe(uname);
   });
 
   it('should refresh token successfully', async () => {
+    const uname = `Refresher_${rand}`;
+    const email = `refresh_${rand}@realmforge.gg`;
+
     const signupRes = await request(app)
       .post('/api/auth/signup')
       .send({
-        username: 'RefresherUser',
-        email: 'refresh@realmforge.gg',
+        username: uname,
+        email,
         password: 'Password999',
       });
 
@@ -74,6 +85,6 @@ describe('Auth API Integration Tests', () => {
 
     expect(refreshRes.status).toBe(200);
     expect(refreshRes.body.tokens.accessToken).toBeDefined();
-    expect(refreshRes.body.user.username).toBe('RefresherUser');
+    expect(refreshRes.body.user.username).toBe(uname);
   });
 });

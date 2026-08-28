@@ -11,10 +11,17 @@ out/
 
 # Environment variables & secrets (NO SECRETS IN REPO)
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
+*.env
+example.env
+
+# Database & Archives
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.zip
+realmforge_staging/
 
 # Logs
 npm-debug.log*

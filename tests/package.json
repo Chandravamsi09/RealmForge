@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "test:unit": "jest --testPathPattern=tests/src/unit",
     "test:integration": "jest --testPathPattern=tests/src/integration --runInBand",
     "test:e2e": "playwright test",

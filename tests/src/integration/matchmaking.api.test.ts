@@ -4,13 +4,14 @@ import { GameMode } from '@realmforge/shared';
 
 describe('Matchmaking API Integration Tests', () => {
   let authToken: string;
+  const rand = Math.floor(Math.random() * 1000000);
 
   beforeAll(async () => {
     const signupRes = await request(app)
       .post('/api/auth/signup')
       .send({
-        username: 'QueueMaster',
-        email: 'queuemaster@realmforge.gg',
+        username: `QueueMaster_${rand}`,
+        email: `queuemaster_${rand}@realmforge.gg`,
         password: 'Password123',
       });
     authToken = signupRes.body.tokens.accessToken;

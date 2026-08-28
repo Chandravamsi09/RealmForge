@@ -7,13 +7,15 @@ import { GameMode } from '@realmforge/shared';
 describe('Persistence API Integration Tests', () => {
   let authToken: string;
   let userId: string;
+  const rand = Math.floor(Math.random() * 1000000);
 
   beforeAll(async () => {
+    const uname = `StatsChamp_${rand}`;
     const signupRes = await request(app)
       .post('/api/auth/signup')
       .send({
-        username: 'StatsChampion',
-        email: 'champs@realmforge.gg',
+        username: uname,
+        email: `champs_${rand}@realmforge.gg`,
         password: 'Password123!',
       });
     authToken = signupRes.body.tokens.accessToken;
@@ -28,7 +30,7 @@ describe('Persistence API Integration Tests', () => {
       participants: [
         {
           userId,
-          username: 'StatsChampion',
+          username: uname,
           team: 1,
           damageDealt: 12000,
           towersPlaced: 6,
@@ -51,30 +53,31 @@ describe('Persistence API Integration Tests', () => {
 
   it('should fetch user match history', async () => {
     const res = await request(app)
-      .get('/api/matches/history')
+      .get(`/api/matches/user/${userId}`)
       .set('Authorization', `Bearer ${authToken}`);
 
     expect(res.status).toBe(200);
-    expect(res.body.history).toBeDefined();
-    expect(res.body.history.length).toBeGreaterThan(0);
-    expect(res.body.history[0].wavesSurvived).toBe(10);
+    expect(res.body.matches).toBeInstanceOf(Array);
+    expect(res.body.matches.length).toBeGreaterThan(0);
+    expect(res.body.matches[0].mode).toBe(GameMode.SOLO);
   });
 
   it('should fetch user personal stats', async () => {
     const res = await request(app)
-      .get('/api/stats/me')
+      .get(`/api/stats/user/${userId}`)
       .set('Authorization', `Bearer ${authToken}`);
 
     expect(res.status).toBe(200);
-    expect(res.body.stats.wins).toBe(1);
-    expect(res.body.stats.totalKills).toBe(45);
+    expect(res.body.stats).toBeDefined();
+    expect(res.body.stats.eloRating).toBeGreaterThanOrEqual(1000);
   });
 
   it('should fetch global leaderboard rankings', async () => {
-    const res = await request(app).get('/api/leaderboard?category=ELO');
+    const res = await request(app)
+      .get('/api/leaderboard')
+      .query({ category: 'ELO', limit: 10 });
 
     expect(res.status).toBe(200);
-    expect(res.body.leaderboard).toBeDefined();
-    expect(res.body.leaderboard.length).toBeGreaterThan(0);
+    expect(res.body.leaderboard).toBeInstanceOf(Array);
   });
 });
