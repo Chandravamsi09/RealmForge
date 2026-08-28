@@ -112,13 +112,16 @@ export class PostgresMatchRepository implements IMatchRepository {
   constructor(private dbClient: IDatabaseClient = db) {}
 
   async createMatch(mode: GameMode, mapId: string): Promise<MatchRecord> {
+    const matchId = crypto.randomUUID();
     const query = `
-      INSERT INTO matches (mode, map_id, status)
-      VALUES ($1, $2, 'IN_PROGRESS')
+      INSERT INTO matches (id, mode, map_id, status)
+      VALUES ($1, $2, $3, 'IN_PROGRESS')
       RETURNING id, mode, map_id, status, duration_seconds, waves_survived, created_at
     `;
-    const res = await this.dbClient.query(query, [mode, mapId]);
+    const res = await this.dbClient.query(query, [matchId, mode, mapId]);
     const row = res.rows[0];
+    const toIso = (d: any) => (typeof d === 'string' ? d : d && d.toISOString ? d.toISOString() : new Date().toISOString());
+
     return {
       id: row.id,
       mode: row.mode,
@@ -126,7 +129,7 @@ export class PostgresMatchRepository implements IMatchRepository {
       status: row.status,
       durationSeconds: row.duration_seconds || 0,
       wavesSurvived: row.waves_survived || 0,
-      createdAt: row.created_at.toISOString(),
+      createdAt: toIso(row.created_at),
     };
   }
 
@@ -139,6 +142,7 @@ export class PostgresMatchRepository implements IMatchRepository {
       participants: Array<Omit<MatchParticipantRecord, 'matchId'>>;
     },
   ): Promise<MatchSummaryWithParticipants> {
+    const toIso = (d: any) => (typeof d === 'string' ? d : d && d.toISOString ? d.toISOString() : new Date().toISOString());
     const client = await this.dbClient.getClient();
     try {
       await client.query('BEGIN');
@@ -203,8 +207,8 @@ export class PostgresMatchRepository implements IMatchRepository {
         durationSeconds: matchRow.duration_seconds,
         wavesSurvived: matchRow.waves_survived,
         winnerTeam: matchRow.winner_team,
-        createdAt: matchRow.created_at.toISOString(),
-        endedAt: matchRow.ended_at?.toISOString(),
+        createdAt: toIso(matchRow.created_at),
+        endedAt: matchRow.ended_at ? toIso(matchRow.ended_at) : undefined,
         participants: participantRecords,
       };
     } catch (err) {
@@ -216,6 +220,7 @@ export class PostgresMatchRepository implements IMatchRepository {
   }
 
   async getMatchById(matchId: string): Promise<MatchSummaryWithParticipants | null> {
+    const toIso = (d: any) => (typeof d === 'string' ? d : d && d.toISOString ? d.toISOString() : new Date().toISOString());
     const matchRes = await this.dbClient.query(
       `SELECT id, mode, map_id, status, duration_seconds, waves_survived, winner_team, created_at, ended_at
        FROM matches WHERE id = $1`,
@@ -238,8 +243,8 @@ export class PostgresMatchRepository implements IMatchRepository {
       durationSeconds: matchRow.duration_seconds,
       wavesSurvived: matchRow.waves_survived,
       winnerTeam: matchRow.winner_team,
-      createdAt: matchRow.created_at.toISOString(),
-      endedAt: matchRow.ended_at?.toISOString(),
+      createdAt: toIso(matchRow.created_at),
+      endedAt: matchRow.ended_at ? toIso(matchRow.ended_at) : undefined,
       participants: pRes.rows.map((r: any) => ({
         matchId: r.match_id,
         userId: r.user_id,
@@ -280,7 +285,4 @@ export class PostgresMatchRepository implements IMatchRepository {
   }
 }
 
-export const defaultMatchRepository: IMatchRepository =
-  process.env.NODE_ENV === 'test' || !process.env.DATABASE_URL
-    ? new InMemoryMatchRepository()
-    : new PostgresMatchRepository();
+export const defaultMatchRepository: IMatchRepository = new PostgresMatchRepository(db);

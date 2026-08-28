@@ -213,7 +213,4 @@ export class PostgresStatsRepository implements IStatsRepository {
   }
 }
 
-export const defaultStatsRepository: IStatsRepository =
-  process.env.NODE_ENV === 'test' || !process.env.DATABASE_URL
-    ? new InMemoryStatsRepository()
-    : new PostgresStatsRepository();
+export const defaultStatsRepository: IStatsRepository = new PostgresStatsRepository(db);
