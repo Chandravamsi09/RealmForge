@@ -16,11 +16,15 @@ export class MainGameScene extends Phaser.Scene {
 
   public selectedTowerToBuild: TowerType | null = null;
   public selectedEntityId: number | null = null;
+  public isMeteorTargetingMode: boolean = false;
+
   public onSelectEntity?: (entityId: number | null) => void;
   public onPlaceTowerRequest?: (gridX: number, gridY: number, towerType: TowerType) => void;
+  public onTriggerSpecialAbility?: (abilityId: string, targetX?: number, targetY?: number) => void;
 
   private hoverGraphics!: Phaser.GameObjects.Graphics;
   private rangeIndicator!: Phaser.GameObjects.Graphics;
+  private abilityIndicator!: Phaser.GameObjects.Graphics;
 
   constructor() {
     super('MainGameScene');
@@ -32,6 +36,7 @@ export class MainGameScene extends Phaser.Scene {
 
     this.hoverGraphics = this.add.graphics();
     this.rangeIndicator = this.add.graphics();
+    this.abilityIndicator = this.add.graphics();
 
     this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
       this.handlePointerMove(pointer);
@@ -40,6 +45,9 @@ export class MainGameScene extends Phaser.Scene {
     this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       this.handlePointerDown(pointer);
     });
+
+    // Right-click or ESC to cancel modes
+    this.input.mouse?.disableContextMenu();
   }
 
   private renderMap(): void {
@@ -65,13 +73,23 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   private handlePointerMove(pointer: Phaser.Input.Pointer): void {
-    const gridPos = this.map.grid.worldToGrid(pointer.worldX, pointer.worldY);
     this.hoverGraphics.clear();
     this.rangeIndicator.clear();
+    this.abilityIndicator.clear();
 
+    // 1. Meteor Targeting Mode Indicator
+    if (this.isMeteorTargetingMode) {
+      this.abilityIndicator.fillStyle(0xf97316, 0.25);
+      this.abilityIndicator.fillCircle(pointer.worldX, pointer.worldY, 120);
+      this.abilityIndicator.lineStyle(2, 0xf97316, 0.9);
+      this.abilityIndicator.strokeCircle(pointer.worldX, pointer.worldY, 120);
+      return;
+    }
+
+    const gridPos = this.map.grid.worldToGrid(pointer.worldX, pointer.worldY);
     if (!this.map.grid.isInBounds(gridPos.x, gridPos.y)) return;
 
-    // Highlight hovered tile
+    // 2. Tower Placement Hover Indicator
     const tile = this.map.grid.getTile(gridPos.x, gridPos.y);
     const isValidBuild = this.selectedTowerToBuild && tile?.buildable && tile.towerEntityId === null;
 
@@ -90,11 +108,30 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   private handlePointerDown(pointer: Phaser.Input.Pointer): void {
+    // Right-click: Cancel placement or ability mode
+    if (pointer.rightButtonDown()) {
+      this.isMeteorTargetingMode = false;
+      this.selectedTowerToBuild = null;
+      if (this.onSelectEntity) this.onSelectEntity(null);
+      return;
+    }
+
+    // 1. Meteor Ability Trigger
+    if (this.isMeteorTargetingMode) {
+      if (this.onTriggerSpecialAbility) {
+        this.onTriggerSpecialAbility('METEOR_STRIKE', pointer.worldX, pointer.worldY);
+      }
+      this.isMeteorTargetingMode = false;
+      this.abilityIndicator.clear();
+      return;
+    }
+
     const gridPos = this.map.grid.worldToGrid(pointer.worldX, pointer.worldY);
     if (!this.map.grid.isInBounds(gridPos.x, gridPos.y)) return;
 
     const tile = this.map.grid.getTile(gridPos.x, gridPos.y);
 
+    // 2. Tower Placement
     if (this.selectedTowerToBuild) {
       if (tile?.buildable && tile.towerEntityId === null) {
         if (this.onPlaceTowerRequest) {
@@ -175,10 +212,12 @@ export class MainGameScene extends Phaser.Scene {
       }
     }
 
-    // Process events (e.g. damage text)
+    // Process events (e.g. damage text, ability FX)
     for (const evt of snapshot.events) {
       if (evt.type === 'ENEMY_DAMAGED') {
         this.showCombatText(evt.payload.damage, evt.payload.enemyId);
+      } else if (evt.type === 'ABILITY_TRIGGERED') {
+        this.showAbilityFx(evt.payload);
       }
     }
   }
@@ -203,5 +242,26 @@ export class MainGameScene extends Phaser.Scene {
       ease: 'Power1',
       onComplete: () => text.destroy(),
     });
+  }
+
+  private showAbilityFx(payload: any): void {
+    if (payload.abilityId === 'METEOR_STRIKE' && payload.targetX !== undefined) {
+      const circle = this.add.circle(payload.targetX, payload.targetY, 120, 0xf97316, 0.4);
+      this.tweens.add({
+        targets: circle,
+        alpha: 0,
+        scale: 1.2,
+        duration: 800,
+        onComplete: () => circle.destroy(),
+      });
+    } else if (payload.abilityId === 'GLACIAL_BLIZZARD') {
+      const flash = this.add.rectangle(256, 192, 512, 384, 0x38bdf8, 0.3);
+      this.tweens.add({
+        targets: flash,
+        alpha: 0,
+        duration: 1000,
+        onComplete: () => flash.destroy(),
+      });
+    }
   }
 }

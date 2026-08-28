@@ -7,12 +7,16 @@ import { useGameSocket } from '../context/GameSocketContext';
 
 interface PhaserGameProps {
   selectedTowerToBuild: TowerType | null;
+  isMeteorTargetingMode?: boolean;
   onSelectEntity: (entityId: number | null) => void;
+  onMeteorFired?: () => void;
 }
 
 export const PhaserGame: React.FC<PhaserGameProps> = ({
   selectedTowerToBuild,
+  isMeteorTargetingMode = false,
   onSelectEntity,
+  onMeteorFired,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<Phaser.Game | null>(null);
@@ -52,6 +56,15 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
           gridY,
         });
       };
+      mainScene.onTriggerSpecialAbility = (abilityId, targetX, targetY) => {
+        sendAction({
+          type: ActionType.TRIGGER_SPECIAL_ABILITY,
+          abilityId,
+          targetX,
+          targetY,
+        });
+        if (onMeteorFired) onMeteorFired();
+      };
     });
 
     return () => {
@@ -65,6 +78,13 @@ export const PhaserGame: React.FC<PhaserGameProps> = ({
       sceneRef.current.selectedTowerToBuild = selectedTowerToBuild;
     }
   }, [selectedTowerToBuild]);
+
+  // Update meteor mode in scene
+  useEffect(() => {
+    if (sceneRef.current) {
+      sceneRef.current.isMeteorTargetingMode = isMeteorTargetingMode;
+    }
+  }, [isMeteorTargetingMode]);
 
   // Feed snapshots to Phaser scene
   useEffect(() => {
