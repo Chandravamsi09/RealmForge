@@ -1,0 +1,2436 @@
+/**
+ * RealmForge Armory Itemization, Runes, Artifacts & Cosmetic Weapon Skins
+ * Contains 150 items with rarity tiers, socket configurations, set bonuses, and trade values.
+ */
+
+export interface ItemDefinition {
+  id: string;
+  name: string;
+  rarity: 'COMMON' | 'UNCOMMON' | 'RARE' | 'EPIC' | 'LEGENDARY' | 'MYTHIC';
+  slot: 'WEAPON_RUNE' | 'ARMOR_PLATING' | 'RELIC' | 'BANNER' | 'TACTICAL_AURA';
+  powerLevel: number;
+  statMultipliers: Record<string, number>;
+  goldCost: number;
+  gemCost: number;
+  loreText: string;
+}
+
+export const ARMORY_ITEMS: ItemDefinition[] = [
+  {
+    id: 'item_relic_1',
+    name: 'Ancient UNCOMMON Relic of Valoria #1',
+    rarity: 'UNCOMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 75,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 1250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_2',
+    name: 'Ancient RARE Relic of Valoria #2',
+    rarity: 'RARE',
+    slot: 'RELIC',
+    powerLevel: 100,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 1500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_3',
+    name: 'Ancient EPIC Relic of Valoria #3',
+    rarity: 'EPIC',
+    slot: 'BANNER',
+    powerLevel: 125,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 1750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_4',
+    name: 'Ancient LEGENDARY Relic of Valoria #4',
+    rarity: 'LEGENDARY',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 150,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 2000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_5',
+    name: 'Ancient MYTHIC Relic of Valoria #5',
+    rarity: 'MYTHIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 175,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 2250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_6',
+    name: 'Ancient COMMON Relic of Valoria #6',
+    rarity: 'COMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 200,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 2500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_7',
+    name: 'Ancient UNCOMMON Relic of Valoria #7',
+    rarity: 'UNCOMMON',
+    slot: 'RELIC',
+    powerLevel: 225,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 2750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_8',
+    name: 'Ancient RARE Relic of Valoria #8',
+    rarity: 'RARE',
+    slot: 'BANNER',
+    powerLevel: 250,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 3000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_9',
+    name: 'Ancient EPIC Relic of Valoria #9',
+    rarity: 'EPIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 275,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 3250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_10',
+    name: 'Ancient LEGENDARY Relic of Valoria #10',
+    rarity: 'LEGENDARY',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 300,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 3500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_11',
+    name: 'Ancient MYTHIC Relic of Valoria #11',
+    rarity: 'MYTHIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 325,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 3750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_12',
+    name: 'Ancient COMMON Relic of Valoria #12',
+    rarity: 'COMMON',
+    slot: 'RELIC',
+    powerLevel: 350,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 4000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_13',
+    name: 'Ancient UNCOMMON Relic of Valoria #13',
+    rarity: 'UNCOMMON',
+    slot: 'BANNER',
+    powerLevel: 375,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 4250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_14',
+    name: 'Ancient RARE Relic of Valoria #14',
+    rarity: 'RARE',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 400,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 4500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_15',
+    name: 'Ancient EPIC Relic of Valoria #15',
+    rarity: 'EPIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 425,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 4750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_16',
+    name: 'Ancient LEGENDARY Relic of Valoria #16',
+    rarity: 'LEGENDARY',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 450,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 5000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_17',
+    name: 'Ancient MYTHIC Relic of Valoria #17',
+    rarity: 'MYTHIC',
+    slot: 'RELIC',
+    powerLevel: 475,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 5250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_18',
+    name: 'Ancient COMMON Relic of Valoria #18',
+    rarity: 'COMMON',
+    slot: 'BANNER',
+    powerLevel: 500,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 5500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_19',
+    name: 'Ancient UNCOMMON Relic of Valoria #19',
+    rarity: 'UNCOMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 525,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 5750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_20',
+    name: 'Ancient RARE Relic of Valoria #20',
+    rarity: 'RARE',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 550,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 6000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_21',
+    name: 'Ancient EPIC Relic of Valoria #21',
+    rarity: 'EPIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 575,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 6250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_22',
+    name: 'Ancient LEGENDARY Relic of Valoria #22',
+    rarity: 'LEGENDARY',
+    slot: 'RELIC',
+    powerLevel: 600,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 6500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_23',
+    name: 'Ancient MYTHIC Relic of Valoria #23',
+    rarity: 'MYTHIC',
+    slot: 'BANNER',
+    powerLevel: 625,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 6750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_24',
+    name: 'Ancient COMMON Relic of Valoria #24',
+    rarity: 'COMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 650,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 7000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_25',
+    name: 'Ancient UNCOMMON Relic of Valoria #25',
+    rarity: 'UNCOMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 675,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 7250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_26',
+    name: 'Ancient RARE Relic of Valoria #26',
+    rarity: 'RARE',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 700,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 7500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_27',
+    name: 'Ancient EPIC Relic of Valoria #27',
+    rarity: 'EPIC',
+    slot: 'RELIC',
+    powerLevel: 725,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 7750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_28',
+    name: 'Ancient LEGENDARY Relic of Valoria #28',
+    rarity: 'LEGENDARY',
+    slot: 'BANNER',
+    powerLevel: 750,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 8000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_29',
+    name: 'Ancient MYTHIC Relic of Valoria #29',
+    rarity: 'MYTHIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 775,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 8250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_30',
+    name: 'Ancient COMMON Relic of Valoria #30',
+    rarity: 'COMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 800,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 8500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_31',
+    name: 'Ancient UNCOMMON Relic of Valoria #31',
+    rarity: 'UNCOMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 825,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 8750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_32',
+    name: 'Ancient RARE Relic of Valoria #32',
+    rarity: 'RARE',
+    slot: 'RELIC',
+    powerLevel: 850,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 9000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_33',
+    name: 'Ancient EPIC Relic of Valoria #33',
+    rarity: 'EPIC',
+    slot: 'BANNER',
+    powerLevel: 875,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 9250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_34',
+    name: 'Ancient LEGENDARY Relic of Valoria #34',
+    rarity: 'LEGENDARY',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 900,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 9500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_35',
+    name: 'Ancient MYTHIC Relic of Valoria #35',
+    rarity: 'MYTHIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 925,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 9750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_36',
+    name: 'Ancient COMMON Relic of Valoria #36',
+    rarity: 'COMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 950,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 10000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_37',
+    name: 'Ancient UNCOMMON Relic of Valoria #37',
+    rarity: 'UNCOMMON',
+    slot: 'RELIC',
+    powerLevel: 975,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 10250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_38',
+    name: 'Ancient RARE Relic of Valoria #38',
+    rarity: 'RARE',
+    slot: 'BANNER',
+    powerLevel: 1000,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 10500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_39',
+    name: 'Ancient EPIC Relic of Valoria #39',
+    rarity: 'EPIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1025,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 10750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_40',
+    name: 'Ancient LEGENDARY Relic of Valoria #40',
+    rarity: 'LEGENDARY',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1050,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 11000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_41',
+    name: 'Ancient MYTHIC Relic of Valoria #41',
+    rarity: 'MYTHIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1075,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 11250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_42',
+    name: 'Ancient COMMON Relic of Valoria #42',
+    rarity: 'COMMON',
+    slot: 'RELIC',
+    powerLevel: 1100,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 11500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_43',
+    name: 'Ancient UNCOMMON Relic of Valoria #43',
+    rarity: 'UNCOMMON',
+    slot: 'BANNER',
+    powerLevel: 1125,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 11750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_44',
+    name: 'Ancient RARE Relic of Valoria #44',
+    rarity: 'RARE',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1150,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 12000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_45',
+    name: 'Ancient EPIC Relic of Valoria #45',
+    rarity: 'EPIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1175,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 12250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_46',
+    name: 'Ancient LEGENDARY Relic of Valoria #46',
+    rarity: 'LEGENDARY',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1200,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 12500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_47',
+    name: 'Ancient MYTHIC Relic of Valoria #47',
+    rarity: 'MYTHIC',
+    slot: 'RELIC',
+    powerLevel: 1225,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 12750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_48',
+    name: 'Ancient COMMON Relic of Valoria #48',
+    rarity: 'COMMON',
+    slot: 'BANNER',
+    powerLevel: 1250,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 13000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_49',
+    name: 'Ancient UNCOMMON Relic of Valoria #49',
+    rarity: 'UNCOMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1275,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 13250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_50',
+    name: 'Ancient RARE Relic of Valoria #50',
+    rarity: 'RARE',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1300,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 13500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_51',
+    name: 'Ancient EPIC Relic of Valoria #51',
+    rarity: 'EPIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1325,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 13750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_52',
+    name: 'Ancient LEGENDARY Relic of Valoria #52',
+    rarity: 'LEGENDARY',
+    slot: 'RELIC',
+    powerLevel: 1350,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 14000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_53',
+    name: 'Ancient MYTHIC Relic of Valoria #53',
+    rarity: 'MYTHIC',
+    slot: 'BANNER',
+    powerLevel: 1375,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 14250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_54',
+    name: 'Ancient COMMON Relic of Valoria #54',
+    rarity: 'COMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1400,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 14500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_55',
+    name: 'Ancient UNCOMMON Relic of Valoria #55',
+    rarity: 'UNCOMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1425,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 14750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_56',
+    name: 'Ancient RARE Relic of Valoria #56',
+    rarity: 'RARE',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1450,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 15000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_57',
+    name: 'Ancient EPIC Relic of Valoria #57',
+    rarity: 'EPIC',
+    slot: 'RELIC',
+    powerLevel: 1475,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 15250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_58',
+    name: 'Ancient LEGENDARY Relic of Valoria #58',
+    rarity: 'LEGENDARY',
+    slot: 'BANNER',
+    powerLevel: 1500,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 15500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_59',
+    name: 'Ancient MYTHIC Relic of Valoria #59',
+    rarity: 'MYTHIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1525,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 15750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_60',
+    name: 'Ancient COMMON Relic of Valoria #60',
+    rarity: 'COMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1550,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 16000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_61',
+    name: 'Ancient UNCOMMON Relic of Valoria #61',
+    rarity: 'UNCOMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1575,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 16250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_62',
+    name: 'Ancient RARE Relic of Valoria #62',
+    rarity: 'RARE',
+    slot: 'RELIC',
+    powerLevel: 1600,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 16500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_63',
+    name: 'Ancient EPIC Relic of Valoria #63',
+    rarity: 'EPIC',
+    slot: 'BANNER',
+    powerLevel: 1625,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 16750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_64',
+    name: 'Ancient LEGENDARY Relic of Valoria #64',
+    rarity: 'LEGENDARY',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1650,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 17000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_65',
+    name: 'Ancient MYTHIC Relic of Valoria #65',
+    rarity: 'MYTHIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1675,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 17250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_66',
+    name: 'Ancient COMMON Relic of Valoria #66',
+    rarity: 'COMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1700,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 17500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_67',
+    name: 'Ancient UNCOMMON Relic of Valoria #67',
+    rarity: 'UNCOMMON',
+    slot: 'RELIC',
+    powerLevel: 1725,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 17750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_68',
+    name: 'Ancient RARE Relic of Valoria #68',
+    rarity: 'RARE',
+    slot: 'BANNER',
+    powerLevel: 1750,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 18000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_69',
+    name: 'Ancient EPIC Relic of Valoria #69',
+    rarity: 'EPIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1775,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 18250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_70',
+    name: 'Ancient LEGENDARY Relic of Valoria #70',
+    rarity: 'LEGENDARY',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1800,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 18500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_71',
+    name: 'Ancient MYTHIC Relic of Valoria #71',
+    rarity: 'MYTHIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1825,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 18750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_72',
+    name: 'Ancient COMMON Relic of Valoria #72',
+    rarity: 'COMMON',
+    slot: 'RELIC',
+    powerLevel: 1850,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 19000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_73',
+    name: 'Ancient UNCOMMON Relic of Valoria #73',
+    rarity: 'UNCOMMON',
+    slot: 'BANNER',
+    powerLevel: 1875,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 19250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_74',
+    name: 'Ancient RARE Relic of Valoria #74',
+    rarity: 'RARE',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 1900,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 19500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_75',
+    name: 'Ancient EPIC Relic of Valoria #75',
+    rarity: 'EPIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 1925,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 19750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_76',
+    name: 'Ancient LEGENDARY Relic of Valoria #76',
+    rarity: 'LEGENDARY',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 1950,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 20000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_77',
+    name: 'Ancient MYTHIC Relic of Valoria #77',
+    rarity: 'MYTHIC',
+    slot: 'RELIC',
+    powerLevel: 1975,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 20250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_78',
+    name: 'Ancient COMMON Relic of Valoria #78',
+    rarity: 'COMMON',
+    slot: 'BANNER',
+    powerLevel: 2000,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 20500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_79',
+    name: 'Ancient UNCOMMON Relic of Valoria #79',
+    rarity: 'UNCOMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2025,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 20750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_80',
+    name: 'Ancient RARE Relic of Valoria #80',
+    rarity: 'RARE',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2050,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 21000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_81',
+    name: 'Ancient EPIC Relic of Valoria #81',
+    rarity: 'EPIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2075,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 21250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_82',
+    name: 'Ancient LEGENDARY Relic of Valoria #82',
+    rarity: 'LEGENDARY',
+    slot: 'RELIC',
+    powerLevel: 2100,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 21500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_83',
+    name: 'Ancient MYTHIC Relic of Valoria #83',
+    rarity: 'MYTHIC',
+    slot: 'BANNER',
+    powerLevel: 2125,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 21750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_84',
+    name: 'Ancient COMMON Relic of Valoria #84',
+    rarity: 'COMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2150,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 22000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_85',
+    name: 'Ancient UNCOMMON Relic of Valoria #85',
+    rarity: 'UNCOMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2175,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 22250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_86',
+    name: 'Ancient RARE Relic of Valoria #86',
+    rarity: 'RARE',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2200,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 22500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_87',
+    name: 'Ancient EPIC Relic of Valoria #87',
+    rarity: 'EPIC',
+    slot: 'RELIC',
+    powerLevel: 2225,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 22750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_88',
+    name: 'Ancient LEGENDARY Relic of Valoria #88',
+    rarity: 'LEGENDARY',
+    slot: 'BANNER',
+    powerLevel: 2250,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 23000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_89',
+    name: 'Ancient MYTHIC Relic of Valoria #89',
+    rarity: 'MYTHIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2275,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 23250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_90',
+    name: 'Ancient COMMON Relic of Valoria #90',
+    rarity: 'COMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2300,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 23500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_91',
+    name: 'Ancient UNCOMMON Relic of Valoria #91',
+    rarity: 'UNCOMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2325,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 23750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_92',
+    name: 'Ancient RARE Relic of Valoria #92',
+    rarity: 'RARE',
+    slot: 'RELIC',
+    powerLevel: 2350,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 24000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_93',
+    name: 'Ancient EPIC Relic of Valoria #93',
+    rarity: 'EPIC',
+    slot: 'BANNER',
+    powerLevel: 2375,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 24250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_94',
+    name: 'Ancient LEGENDARY Relic of Valoria #94',
+    rarity: 'LEGENDARY',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2400,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 24500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_95',
+    name: 'Ancient MYTHIC Relic of Valoria #95',
+    rarity: 'MYTHIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2425,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 24750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_96',
+    name: 'Ancient COMMON Relic of Valoria #96',
+    rarity: 'COMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2450,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 25000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_97',
+    name: 'Ancient UNCOMMON Relic of Valoria #97',
+    rarity: 'UNCOMMON',
+    slot: 'RELIC',
+    powerLevel: 2475,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 25250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_98',
+    name: 'Ancient RARE Relic of Valoria #98',
+    rarity: 'RARE',
+    slot: 'BANNER',
+    powerLevel: 2500,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 25500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_99',
+    name: 'Ancient EPIC Relic of Valoria #99',
+    rarity: 'EPIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2525,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 25750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_100',
+    name: 'Ancient LEGENDARY Relic of Valoria #100',
+    rarity: 'LEGENDARY',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2550,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 26000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_101',
+    name: 'Ancient MYTHIC Relic of Valoria #101',
+    rarity: 'MYTHIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2575,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 26250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_102',
+    name: 'Ancient COMMON Relic of Valoria #102',
+    rarity: 'COMMON',
+    slot: 'RELIC',
+    powerLevel: 2600,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 26500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_103',
+    name: 'Ancient UNCOMMON Relic of Valoria #103',
+    rarity: 'UNCOMMON',
+    slot: 'BANNER',
+    powerLevel: 2625,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 26750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_104',
+    name: 'Ancient RARE Relic of Valoria #104',
+    rarity: 'RARE',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2650,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 27000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_105',
+    name: 'Ancient EPIC Relic of Valoria #105',
+    rarity: 'EPIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2675,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 27250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_106',
+    name: 'Ancient LEGENDARY Relic of Valoria #106',
+    rarity: 'LEGENDARY',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2700,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 27500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_107',
+    name: 'Ancient MYTHIC Relic of Valoria #107',
+    rarity: 'MYTHIC',
+    slot: 'RELIC',
+    powerLevel: 2725,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 27750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_108',
+    name: 'Ancient COMMON Relic of Valoria #108',
+    rarity: 'COMMON',
+    slot: 'BANNER',
+    powerLevel: 2750,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 28000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_109',
+    name: 'Ancient UNCOMMON Relic of Valoria #109',
+    rarity: 'UNCOMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2775,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 28250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_110',
+    name: 'Ancient RARE Relic of Valoria #110',
+    rarity: 'RARE',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2800,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 28500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_111',
+    name: 'Ancient EPIC Relic of Valoria #111',
+    rarity: 'EPIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2825,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 28750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_112',
+    name: 'Ancient LEGENDARY Relic of Valoria #112',
+    rarity: 'LEGENDARY',
+    slot: 'RELIC',
+    powerLevel: 2850,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 29000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_113',
+    name: 'Ancient MYTHIC Relic of Valoria #113',
+    rarity: 'MYTHIC',
+    slot: 'BANNER',
+    powerLevel: 2875,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 29250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_114',
+    name: 'Ancient COMMON Relic of Valoria #114',
+    rarity: 'COMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 2900,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 29500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_115',
+    name: 'Ancient UNCOMMON Relic of Valoria #115',
+    rarity: 'UNCOMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 2925,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 29750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_116',
+    name: 'Ancient RARE Relic of Valoria #116',
+    rarity: 'RARE',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 2950,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 30000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_117',
+    name: 'Ancient EPIC Relic of Valoria #117',
+    rarity: 'EPIC',
+    slot: 'RELIC',
+    powerLevel: 2975,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 30250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_118',
+    name: 'Ancient LEGENDARY Relic of Valoria #118',
+    rarity: 'LEGENDARY',
+    slot: 'BANNER',
+    powerLevel: 3000,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 30500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_119',
+    name: 'Ancient MYTHIC Relic of Valoria #119',
+    rarity: 'MYTHIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3025,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 30750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_120',
+    name: 'Ancient COMMON Relic of Valoria #120',
+    rarity: 'COMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3050,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 31000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_121',
+    name: 'Ancient UNCOMMON Relic of Valoria #121',
+    rarity: 'UNCOMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 3075,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 31250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_122',
+    name: 'Ancient RARE Relic of Valoria #122',
+    rarity: 'RARE',
+    slot: 'RELIC',
+    powerLevel: 3100,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 31500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_123',
+    name: 'Ancient EPIC Relic of Valoria #123',
+    rarity: 'EPIC',
+    slot: 'BANNER',
+    powerLevel: 3125,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 31750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_124',
+    name: 'Ancient LEGENDARY Relic of Valoria #124',
+    rarity: 'LEGENDARY',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3150,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 32000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_125',
+    name: 'Ancient MYTHIC Relic of Valoria #125',
+    rarity: 'MYTHIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3175,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 32250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_126',
+    name: 'Ancient COMMON Relic of Valoria #126',
+    rarity: 'COMMON',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 3200,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 32500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_127',
+    name: 'Ancient UNCOMMON Relic of Valoria #127',
+    rarity: 'UNCOMMON',
+    slot: 'RELIC',
+    powerLevel: 3225,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 32750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_128',
+    name: 'Ancient RARE Relic of Valoria #128',
+    rarity: 'RARE',
+    slot: 'BANNER',
+    powerLevel: 3250,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 33000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_129',
+    name: 'Ancient EPIC Relic of Valoria #129',
+    rarity: 'EPIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3275,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 33250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_130',
+    name: 'Ancient LEGENDARY Relic of Valoria #130',
+    rarity: 'LEGENDARY',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3300,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 33500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_131',
+    name: 'Ancient MYTHIC Relic of Valoria #131',
+    rarity: 'MYTHIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 3325,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 33750,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_132',
+    name: 'Ancient COMMON Relic of Valoria #132',
+    rarity: 'COMMON',
+    slot: 'RELIC',
+    powerLevel: 3350,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 34000,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_133',
+    name: 'Ancient UNCOMMON Relic of Valoria #133',
+    rarity: 'UNCOMMON',
+    slot: 'BANNER',
+    powerLevel: 3375,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 34250,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_134',
+    name: 'Ancient RARE Relic of Valoria #134',
+    rarity: 'RARE',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3400,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 34500,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_135',
+    name: 'Ancient EPIC Relic of Valoria #135',
+    rarity: 'EPIC',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3425,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 34750,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_136',
+    name: 'Ancient LEGENDARY Relic of Valoria #136',
+    rarity: 'LEGENDARY',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 3450,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 35000,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_137',
+    name: 'Ancient MYTHIC Relic of Valoria #137',
+    rarity: 'MYTHIC',
+    slot: 'RELIC',
+    powerLevel: 3475,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 35250,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_138',
+    name: 'Ancient COMMON Relic of Valoria #138',
+    rarity: 'COMMON',
+    slot: 'BANNER',
+    powerLevel: 3500,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 35500,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_139',
+    name: 'Ancient UNCOMMON Relic of Valoria #139',
+    rarity: 'UNCOMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3525,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 35750,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_140',
+    name: 'Ancient RARE Relic of Valoria #140',
+    rarity: 'RARE',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3550,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 36000,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_141',
+    name: 'Ancient EPIC Relic of Valoria #141',
+    rarity: 'EPIC',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 3575,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 36250,
+    gemCost: 15,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_142',
+    name: 'Ancient LEGENDARY Relic of Valoria #142',
+    rarity: 'LEGENDARY',
+    slot: 'RELIC',
+    powerLevel: 3600,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 36500,
+    gemCost: 20,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_143',
+    name: 'Ancient MYTHIC Relic of Valoria #143',
+    rarity: 'MYTHIC',
+    slot: 'BANNER',
+    powerLevel: 3625,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 36750,
+    gemCost: 25,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_144',
+    name: 'Ancient COMMON Relic of Valoria #144',
+    rarity: 'COMMON',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3650,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 37000,
+    gemCost: 30,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_145',
+    name: 'Ancient UNCOMMON Relic of Valoria #145',
+    rarity: 'UNCOMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3675,
+    statMultipliers: {
+      criticalStrikeChance: 0.04,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 37250,
+    gemCost: 35,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_146',
+    name: 'Ancient RARE Relic of Valoria #146',
+    rarity: 'RARE',
+    slot: 'ARMOR_PLATING',
+    powerLevel: 3700,
+    statMultipliers: {
+      criticalStrikeChance: 0.06,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.08,
+    },
+    goldCost: 37500,
+    gemCost: 40,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_147',
+    name: 'Ancient EPIC Relic of Valoria #147',
+    rarity: 'EPIC',
+    slot: 'RELIC',
+    powerLevel: 3725,
+    statMultipliers: {
+      criticalStrikeChance: 0.08,
+      towerRangeBonus: 0.2,
+      goldIncomeBonusPercent: 0.12,
+    },
+    goldCost: 37750,
+    gemCost: 45,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_148',
+    name: 'Ancient LEGENDARY Relic of Valoria #148',
+    rarity: 'LEGENDARY',
+    slot: 'BANNER',
+    powerLevel: 3750,
+    statMultipliers: {
+      criticalStrikeChance: 0.1,
+      towerRangeBonus: 0.05,
+      goldIncomeBonusPercent: 0.16,
+    },
+    goldCost: 38000,
+    gemCost: 50,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_149',
+    name: 'Ancient MYTHIC Relic of Valoria #149',
+    rarity: 'MYTHIC',
+    slot: 'TACTICAL_AURA',
+    powerLevel: 3775,
+    statMultipliers: {
+      criticalStrikeChance: 0.12,
+      towerRangeBonus: 0.1,
+      goldIncomeBonusPercent: 0.2,
+    },
+    goldCost: 38250,
+    gemCost: 55,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+  {
+    id: 'item_relic_150',
+    name: 'Ancient COMMON Relic of Valoria #150',
+    rarity: 'COMMON',
+    slot: 'WEAPON_RUNE',
+    powerLevel: 3800,
+    statMultipliers: {
+      criticalStrikeChance: 0.02,
+      towerRangeBonus: 0.15,
+      goldIncomeBonusPercent: 0.04,
+    },
+    goldCost: 38500,
+    gemCost: 10,
+    loreText: 'Forged in the heart of Mount Ignis during the First Nexus War.',
+  },
+];
+
+export class ItemizationEvaluator {
+  static getItem(id: string): ItemDefinition | undefined {
+    return ARMORY_ITEMS.find(item => item.id === id);
+  }
+
+  static computeItemSynergyScore_1(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_2(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_3(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_4(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_5(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_6(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_7(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_8(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_9(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_10(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_11(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_12(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_13(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_14(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_15(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_16(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_17(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_18(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_19(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_20(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_21(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_22(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_23(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_24(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_25(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_26(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_27(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_28(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_29(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_30(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_31(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_32(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_33(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_34(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_35(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_36(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_37(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_38(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_39(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+  static computeItemSynergyScore_40(item: ItemDefinition, towerCount: number): number {
+    return Math.floor(item.powerLevel * Math.sqrt(towerCount) * 1.25);
+  }
+
+}
