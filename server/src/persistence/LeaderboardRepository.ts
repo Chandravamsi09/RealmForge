@@ -1,6 +1,6 @@
 import { LeaderboardCategory, LeaderboardEntry } from '@realmforge/shared';
 import { db, IDatabaseClient } from '../db/connection';
-import { InMemoryStatsRepository, defaultStatsRepository } from './StatsRepository';
+import { InMemoryStatsRepository } from './StatsRepository';
 
 export interface ILeaderboardRepository {
   getTopPlayers(category: LeaderboardCategory, limit?: number, offset?: number): Promise<LeaderboardEntry[]>;
@@ -80,7 +80,4 @@ export class PostgresLeaderboardRepository implements ILeaderboardRepository {
   }
 }
 
-export const defaultLeaderboardRepository: ILeaderboardRepository =
-  process.env.NODE_ENV === 'test' || !process.env.DATABASE_URL
-    ? new InMemoryLeaderboardRepository(defaultStatsRepository as InMemoryStatsRepository)
-    : new PostgresLeaderboardRepository();
+export const defaultLeaderboardRepository: ILeaderboardRepository = new PostgresLeaderboardRepository(db);

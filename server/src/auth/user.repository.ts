@@ -18,7 +18,7 @@ export interface IUserRepository {
   setBanned(userId: string, isBanned: boolean): Promise<void>;
 }
 
-// In-Memory Repository implementation for tests and standalone mode
+// In-Memory Repository implementation for isolated unit testing
 export class InMemoryUserRepository implements IUserRepository {
   private users: Map<string, UserWithProfile> = new Map();
   private passwordHashes: Map<string, string> = new Map();
@@ -114,7 +114,7 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 }
 
-// PostgreSQL Repository Implementation
+// Persistent Database Repository Implementation (authoritative for all environments)
 export class PostgresUserRepository implements IUserRepository {
   constructor(private dbClient: IDatabaseClient = db) {}
 
@@ -164,13 +164,14 @@ export class PostgresUserRepository implements IUserRepository {
     role?: UserRole;
   }): Promise<UserWithProfile> {
     const client = await this.dbClient.getClient();
+    const userId = crypto.randomUUID();
     try {
       await client.query('BEGIN');
       const userRes = await client.query(
-        `INSERT INTO users (username, email, password_hash, role)
-         VALUES ($1, $2, $3, $4)
+        `INSERT INTO users (id, username, email, password_hash, role)
+         VALUES ($1, $2, $3, $4, $5)
          RETURNING id, username, email, role, elo_rating, is_banned, created_at, updated_at`,
-        [userData.username, userData.email.toLowerCase(), userData.passwordHash, userData.role || UserRole.PLAYER],
+        [userId, userData.username, userData.email.toLowerCase(), userData.passwordHash, userData.role || UserRole.PLAYER],
       );
       const userRow = userRes.rows[0];
 
@@ -189,17 +190,17 @@ export class PostgresUserRepository implements IUserRepository {
         username: userRow.username,
         email: userRow.email,
         role: userRow.role,
-        eloRating: userRow.elo_rating,
-        isBanned: userRow.is_banned,
-        createdAt: userRow.created_at.toISOString(),
-        updatedAt: userRow.updated_at.toISOString(),
+        eloRating: Number(userRow.elo_rating) || 1000,
+        isBanned: Boolean(userRow.is_banned),
+        createdAt: typeof userRow.created_at === 'string' ? userRow.created_at : userRow.created_at.toISOString(),
+        updatedAt: typeof userRow.updated_at === 'string' ? userRow.updated_at : userRow.updated_at.toISOString(),
         profile: {
           userId: userRow.id,
           avatar: profileRow.avatar,
-          level: profileRow.level,
-          xp: profileRow.xp,
-          gold: profileRow.gold,
-          gems: profileRow.gems,
+          level: Number(profileRow.level) || 1,
+          xp: Number(profileRow.xp) || 0,
+          gold: Number(profileRow.gold) || 500,
+          gems: Number(profileRow.gems) || 50,
         },
       };
     } catch (err) {
@@ -226,7 +227,7 @@ export class PostgresUserRepository implements IUserRepository {
   async setBanned(userId: string, isBanned: boolean): Promise<void> {
     await this.dbClient.query(
       'UPDATE users SET is_banned = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
-      [isBanned, userId],
+      [isBanned ? 1 : 0, userId],
     );
   }
 
@@ -270,10 +271,10 @@ export class PostgresUserRepository implements IUserRepository {
     return {
       userId,
       avatar: row.avatar,
-      level: row.level,
-      xp: row.xp,
-      gold: row.gold,
-      gems: row.gems,
+      level: Number(row.level) || 1,
+      xp: Number(row.xp) || 0,
+      gold: Number(row.gold) || 500,
+      gems: Number(row.gems) || 50,
     };
   }
 
@@ -283,23 +284,20 @@ export class PostgresUserRepository implements IUserRepository {
       username: row.username,
       email: row.email,
       role: row.role,
-      eloRating: row.elo_rating,
-      isBanned: row.is_banned,
+      eloRating: Number(row.elo_rating) || 1000,
+      isBanned: Boolean(row.is_banned),
       createdAt: typeof row.created_at === 'string' ? row.created_at : row.created_at.toISOString(),
       updatedAt: typeof row.updated_at === 'string' ? row.updated_at : row.updated_at.toISOString(),
       profile: {
         userId: row.id,
-        avatar: row.avatar,
-        level: row.level,
-        xp: row.xp,
-        gold: row.gold,
-        gems: row.gems,
+        avatar: row.avatar || 'default_avatar',
+        level: Number(row.level) || 1,
+        xp: Number(row.xp) || 0,
+        gold: Number(row.gold) || 500,
+        gems: Number(row.gems) || 50,
       },
     };
   }
 }
 
-export const defaultUserRepository: IUserRepository =
-  process.env.NODE_ENV === 'test' || !process.env.DATABASE_URL
-    ? new InMemoryUserRepository()
-    : new PostgresUserRepository();
+export const defaultUserRepository: IUserRepository = new PostgresUserRepository(db);

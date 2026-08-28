@@ -19,6 +19,17 @@ persistenceRouter.get('/matches/history', authenticateJwt, async (req: Authentic
   }
 });
 
+persistenceRouter.get('/matches/user/:userId', async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit as string, 10) || 20;
+    const offset = parseInt(req.query.offset as string, 10) || 0;
+    const matches = await defaultMatchRepository.getUserMatchHistory(req.params.userId, limit, offset);
+    res.status(200).json({ matches });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 persistenceRouter.get('/matches/:matchId', async (req, res) => {
   try {
     const match = await defaultMatchRepository.getMatchById(req.params.matchId);
