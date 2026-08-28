@@ -3,13 +3,14 @@ import { app } from '@realmforge/server';
 
 describe('Economy API Integration Tests', () => {
   let authToken: string;
+  const rand = Math.floor(Math.random() * 1000000);
 
   beforeAll(async () => {
     const signupRes = await request(app)
       .post('/api/auth/signup')
       .send({
-        username: 'ShopCustomer',
-        email: 'shop@realmforge.gg',
+        username: `ShopCustomer_${rand}`,
+        email: `shop_${rand}@realmforge.gg`,
         password: 'Password123!',
       });
     authToken = signupRes.body.tokens.accessToken;

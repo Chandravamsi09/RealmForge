@@ -1,0 +1,541 @@
+================================================================================
+          🏰⚡ REALMFORGE: OFFICIAL RULEBOOK & MASTER GAMEPLAY MANUAL ⚡🏰
+================================================================================
+       Authoritative Real-Time Multiplayer Deterministic Tower Defense
+================================================================================
+
+TABLE OF CONTENTS:
+--------------------------------------------------------------------------------
+1.  GAME OBJECTIVE & CORE RULES
+2.  GAME MODES (SOLO, 2P/4P CO-OP, 1v1 PVP)
+3.  COMPLETE BEGINNER TUTORIAL (STEP-BY-STEP)
+4.  CONTROLS & KEYBOARD SHORTCUTS REFERENCE TABLE
+5.  BUILDING, PLACEMENT & MAZING RULES
+6.  TOWER SYSTEM & ARSENAL
+7.  UPGRADE & BRANCH LOCKING SYSTEM (TIERS 1 - 4)
+8.  TOWER TARGETING SYSTEM & PRIORITY RULES
+9.  SPECIAL POWERS & TACTICAL ABILITIES
+10. ENEMY COMPENDIUM & BEASTIARY
+11. COMBAT & DAMAGE MATHEMATICS (WITH NUMERICAL EXAMPLES)
+12. STATUS EFFECTS & CROWD CONTROL RULES
+13. WAVE GENERATION & MATHEMATICAL SCALING SYSTEM
+14. ECONOMY, GOLD MANAGEMENT, INTEREST & BONUSES
+15. CO-OP MULTIPLAYER RULES & TEAM DYNAMICS
+16. 1v1 PVP DUEL RULES & CREEP SENDING ECONOMY
+17. FLYING MECHANICS & SPECIAL TARGETING INTERACTIONS
+18. VICTORY, DEFEAT & ENDLESS SURVIVAL CONDITIONS
+19. REWARDS, XP, GEMS, SHARDS & PROGRESSION
+20. METAGAME STORE, COSMETICS & LOADOUTS
+21. RANKED LEADERBOARDS & ELO (K=32) FORMULA
+22. FREQUENTLY ASKED QUESTIONS (FAQ) & TROUBLESHOOTING
+
+================================================================================
+1. GAME OBJECTIVE & CORE RULES
+================================================================================
+RealmForge is an authoritative, real-time multiplayer tower defense game running
+on a 20 Hz deterministic Entity Component System (ECS) with 50ms tick rate.
+
+CORE OBJECTIVE:
+  - Defend your NEXUS BASE against continuous, procedurally scaling creep waves.
+  - Strategically place, upgrade, and synergize defensive towers along the path.
+  - Manage your gold treasury, leverage compound interest, and execute timely abilities.
+  - If your Nexus HP reaches 0, your realm collapses and the match concludes.
+
+================================================================================
+2. GAME MODES
+================================================================================
+[1] SOLO SURVIVAL (SOLO)
+    - Single-player endurance against infinite monster waves.
+    - Test new tower upgrade branches, maze configurations, and ability timings.
+
+[2] 2-PLAYER CO-OP (COOP_2P)
+    - 2 Tacticians cooperate on a shared battlefield with a shared Nexus.
+    - Shared creep bounty gold ensures collaborative synergy (e.g. frost slowing
+      combined with heavy mortar artillery).
+
+[3] 4-PLAYER SQUAD RAID (COOP_4P)
+    - 4 Tacticians defend against massive creep density and amplified Titan bosses.
+    - Enemy health scales dynamically with player count (+60% HP per added player).
+
+[4] 1v1 PVP DUEL (PVP_1V1)
+    - Head-to-head competitive tower defense.
+    - Spend gold to summon creep waves onto your opponent's lane while defending
+      your own. Sending creeps boosts your passive wave income!
+    - First player whose Nexus reaches 0 loses; winner gains ranked ELO.
+
+================================================================================
+3. COMPLETE BEGINNER TUTORIAL (STEP-BY-STEP)
+================================================================================
+Step 1: Launch & Authenticate
+  - Open http://localhost:3000 in your web browser.
+  - Create a new account with Username, Email, and Password or Sign In.
+
+Step 2: Lobby Setup
+  - Select your desired Game Mode (Solo, Co-op 2P/4P, or PvP 1v1).
+  - Click "Find Match" for automated ELO matchmaking, or create a Custom Room.
+
+Step 3: Initial Base Setup
+  - You begin the match with 450 Starting Gold and a full 100 HP Nexus.
+  - Inspect the red monster spawn portal and the blue Nexus crystal.
+  - Build your first towers (Archer or Cannon) near chokepoint corners.
+
+Step 4: Active Defense & Upgrading
+  - As enemies die, you immediately collect gold bounties.
+  - Left-Click existing towers to inspect their stats and purchase Tier 2/3 upgrades.
+  - Use [Q], [W], [E], [R] tactical abilities when large swarms threaten your line.
+
+Step 5: Wave Clear & Interest
+  - At the end of each wave, unspent gold earns 10% compound interest (up to 50g).
+
+================================================================================
+4. CONTROLS & KEYBOARD SHORTCUTS REFERENCE TABLE
+================================================================================
+
++-------------+---------------------------------------------------------------+
+| KEY / INPUT | ACTION DESCRIPTION                                            |
++-------------+---------------------------------------------------------------+
+| [1]         | Select ARCHER WATCHTOWER for placement                        |
+| [2]         | Select ARCANE SPIRE for placement                             |
+| [3]         | Select HEAVY CANNON for placement                             |
+| [4]         | Select TESLA COIL for placement                               |
+| [5]         | Select FROST OBELISK for placement                            |
+| [6]         | Select COMMAND BASTION (BARRACKS) for placement               |
+| [ESC]       | Cancel build preview / Deselect active tower                  |
+| [Left-Click]| Construct tower (in build mode) / Select tower to inspect     |
+| [Right-Click| Cancel current placement selection                            |
+| [T] / [Tab] | Cycle Target Priority (FIRST -> STRONGEST -> WEAKEST -> etc.)|
+| [U]         | Quick Upgrade selected tower (Branch A default)               |
+| [S] / [Del] | Sell selected tower for 75% invested gold refund              |
+| [Q]         | Trigger Special Ability 1: METEOR STRIKE (Mouse cursor target)|
+| [W]         | Trigger Special Ability 2: GLACIAL BLIZZARD (Map-wide Slow)   |
+| [E]         | Trigger Special Ability 3: OVERCHARGE GRID (Tower Haste Buff) |
+| [R]         | Trigger Special Ability 4: EMERGENCY REPAIR (Restore Nexus HP)|
+| [Enter]     | Open / Send In-Game Squad Chat                                |
++-------------+---------------------------------------------------------------+
+
+================================================================================
+5. BUILDING, PLACEMENT & MAZING RULES
+================================================================================
+- Tile Grid System:
+    The map consists of a 2D tile matrix with 32x32 pixel cells.
+    * GREEN Tile: Buildable ground.
+    * RED Tile: Obstructed path, existing tower, or illegal placement.
+- Anti-Blocking Pathfinding Law (A*):
+    Creeps calculate dynamic paths using A* with a Min-Heap priority queue.
+    The game engine STRICTLY PREVENTS you from placing any tower that would
+    completely block all valid routes from any spawn portal to the Nexus.
+    You can create long, winding mazes, but an open path must ALWAYS exist!
+- Tower Collision:
+    Only 1 tower can occupy a single grid cell. Towers cannot be stacked.
+
+================================================================================
+6. TOWER SYSTEM & ARSENAL
+================================================================================
+
+[1] ARCHER WATCHTOWER
+  - Base Cost: 100g | Damage: 25 Physical | Range: 160 | Fire Rate: 1.5/s
+  - Targets: Ground & Flying (High-speed anti-air sniper)
+  - Role: Single-target physical DPS; essential against early swarms and flyers.
+
+[2] ARCANE SPIRE
+  - Base Cost: 150g | Damage: 40 Magic | Range: 140 | Fire Rate: 0.8/s | Splash: 48
+  - Targets: Ground & Flying (Magic AoE burst)
+  - Role: Bypasses heavy armor. Splashes damage across clustered creep groups.
+
+[3] HEAVY CANNON
+  - Base Cost: 200g | Damage: 90 Physical | Range: 180 | Fire Rate: 0.4/s | Splash: 64
+  - Targets: Ground ONLY (Mortar shells cannot hit flying Wyverns)
+  - Role: Long-range siege artillery. Delivers massive kinetic splash shockwaves.
+
+[4] TESLA COIL
+  - Base Cost: 175g | Damage: 35 Lightning | Range: 130 | Chains: 4 | Decay: 20%
+  - Targets: Ground & Flying (Arcing lightning)
+  - Role: Hybrid damage that ignores 50% of armor and MR; chains across up to 10 targets.
+
+[5] FROST OBELISK
+  - Base Cost: 125g | Damage: 15 Frost | Range: 125 | Slow: 35% (2.5s duration)
+  - Targets: Ground & Flying
+  - Role: Crowd-control utility. Chills enemies and grants +25% bonus frost damage.
+
+[6] COMMAND BASTION (BARRACKS)
+  - Base Cost: 150g | Range: 150 | Direct Damage: 0
+  - Targets: Aura Buff to Adjacent Friendly Towers
+  - Role: Grants +20% to +70% attack speed or +50% damage to all neighboring towers.
+
+================================================================================
+7. UPGRADE & BRANCH LOCKING SYSTEM (TIERS 1 - 4)
+================================================================================
+
+UPGRADE PROGRESSION DIAGRAM:
+  Tier 1 (Base Tower)
+     ↓
+  Tier 2 (Core Upgrade)
+     ↓
+  +-----------------------+-----------------------+
+  |                       |                       |
+  Branch A (Tier 3A)      Branch B (Tier 3B)
+     ↓                       ↓
+  Tier 4A (Cap-stone A)   Tier 4B (Cap-stone B)
+
+BRANCH LOCKING RULE:
+  At Tier 3, you MUST choose between Branch A and Branch B.
+  Once you select a branch, the alternate branch is PERMANENTLY LOCKED for that
+  individual tower. Tier 4 upgrades follow the chosen branch.
+
+UPGRADE COST EXPLANATION:
+  Upgrade costs are ADDITIVE increments on top of previous tiers.
+  Total Investment = Base Cost + Tier 2 + Tier 3 + Tier 4.
+
+--------------------------------------------------------------------------------
+DETAILED UPGRADE TREES & COSTS:
+--------------------------------------------------------------------------------
+
+1. ARCHER WATCHTOWER
+  - Tier 1: Base Watchtower (100g)
+  - Tier 2: Marksman Post (+120g) -> Dmg: 45 | Range: 180 | Rate: 1.8/s
+  - Tier 3A: Longbow Sniper (+240g) -> Dmg: 120 | Range: 260 | Rate: 1.0/s (Armor Piercing)
+  - Tier 3B: Repeating Crossbow (+220g) -> Dmg: 35 | Range: 160 | Rate: 4.0/s (Rapid Fire)
+  - Tier 4A: Grand Eagle Eye (+500g) -> Dmg: 320 | Range: 340 | Rate: 1.2/s (Critical Mastery)
+  - Tier 4B: Ballista Gatling (+480g) -> Dmg: 75 | Range: 190 | Rate: 6.5/s (Gatling Column Shredder)
+  * Total Tier 4A Investment: 100 + 120 + 240 + 500 = 960g
+
+2. ARCANE SPIRE
+  - Tier 1: Base Spire (150g)
+  - Tier 2: Aether Sanctum (+160g) -> Dmg: 75 | Splash: 56
+  - Tier 3A: Pyroclasm Forge (+280g) -> Dmg: 130 | Splash: 64 | Burn DoT (20 dmg/tick over 3s)
+  - Tier 3B: Void Singularity (+300g) -> Dmg: 160 | Splash: 72 | Armor Shred (Strips 35% Armor/MR)
+  - Tier 4A: Solar Cataclysm (+600g) -> Dmg: 380 | Splash: 88 | Devastating Solar Burn (40 dmg/tick)
+  - Tier 4B: Astral Rift (+650g) -> Dmg: 420 | Splash: 100 | Massive 60% Resistance Shred Vortex
+  * Total Tier 4B Investment: 150 + 160 + 300 + 650 = 1260g
+
+3. HEAVY CANNON
+  - Tier 1: Base Cannon (200g)
+  - Tier 2: Reinforced Howitzer (+200g) -> Dmg: 160 | Splash: 72 | Rate: 0.45/s
+  - Tier 3A: Cluster Mortar (+350g) -> Dmg: 280 | Splash: 84 | Secondary Bomblets
+  - Tier 3B: Siege Dreadnought (+400g) -> Dmg: 480 | Range: 280 | Splash: 96 | Anti-Titan Mortar
+  - Tier 4A: Hellfire Battery (+800g) -> Dmg: 700 | Range: 250 | Splash: 110 | Rate: 0.65/s
+  - Tier 4B: Earthshaker Behemoth (+850g) -> Dmg: 1350 | Range: 320 | Splash: 130 | Tectonic Shockwave
+  * Total Tier 4B Investment: 200 + 200 + 400 + 850 = 1650g
+
+4. TESLA COIL
+  - Tier 1: Base Coil (175g) -> Dmg: 35 | 4 Chains (20% decay per bounce)
+  - Tier 2: Capacitor Array (+180g) -> Dmg: 60 | 5 Chains (15% decay)
+  - Tier 3A: High-Voltage Overdrive (+320g) -> Dmg: 130 | 7 Chains | Stun (600ms shock stun)
+  - Tier 3B: Plasma Storm (+340g) -> Dmg: 110 | 6 Chains | Rate: 2.2/s | Ionized AoE Splash
+  - Tier 4A: Thor’s Megavolt (+720g) -> Dmg: 340 | 10 Chains (5% decay) | Heavy 900ms Stun Force
+  - Tier 4B: Antimatter Discharge (+760g) -> Dmg: 290 | 8 Chains | Rate: 3.0/s | High-frequency Storm
+  * Total Tier 4A Investment: 175 + 180 + 320 + 720 = 1395g
+
+5. FROST OBELISK
+  - Tier 1: Base Obelisk (125g) -> Dmg: 15 | 35% Slow (2.5s duration)
+  - Tier 2: Glacial Pillar (+140g) -> Dmg: 30 | 45% Slow | Splash: 48
+  - Tier 3A: Blizzard Core (+260g) -> Dmg: 65 | 60% Slow (3.5s duration) | Splash: 64
+  - Tier 3B: Permafrost Spike (+290g) -> Dmg: 140 | Freeze Stun (Locks enemy solid for 1.2s)
+  - Tier 4A: Zero-Kelvin Tempest (+580g) -> Dmg: 180 | Sub-Zero 75% Slow (4.0s duration) | Splash: 90
+  - Tier 4B: Cryo-Shatter Monolith (+620g) -> Dmg: 380 | Complete 2.0s Perma-Freeze Stun + Shatter
+  * Total Tier 4A Investment: 125 + 140 + 260 + 580 = 1105g
+
+6. COMMAND BASTION (BARRACKS)
+  - Tier 1: Base Bastion (150g) -> +20% Attack Speed Aura (Radius: 150px)
+  - Tier 2: Warlord Citadel (+160g) -> +30% Attack Speed Aura (Radius: 170px)
+  - Tier 3A: High Marshall Spire (+300g) -> +45% Attack Speed Aura (Radius: 190px)
+  - Tier 3B: Runic Armory (+320g) -> +30% Pure Damage Boost Aura (Radius: 180px)
+  - Tier 4A: Avatar of Valor (+650g) -> +70% Frenzy Attack Speed Aura (Radius: 220px)
+  - Tier 4B: Sanctum of Sovereignty (+700g) -> +50% Bonus Damage & Range Aura (Radius: 200px)
+  * Total Tier 4A Investment: 150 + 160 + 300 + 650 = 1260g
+
+================================================================================
+8. TOWER TARGETING SYSTEM & PRIORITY RULES
+================================================================================
+Every offensive tower can have its targeting behavior customized at any time.
+
+AVAILABLE TARGET PRIORITIES:
+  1. FIRST (Default): Attacks the enemy closest to reaching the Nexus (highest path progress).
+  2. LAST: Attacks the enemy furthest from the Nexus (closest to the spawn portal).
+  3. STRONGEST: Attacks the enemy with the highest current HP (essential for Titan bosses).
+  4. WEAKEST: Attacks the enemy with the lowest current HP (eliminates low HP stragglers).
+  5. NEAREST: Attacks the enemy closest in Euclidean pixel distance to the tower.
+  6. FASTEST: Attacks the enemy with the highest movement speed (targets Swarms and Flyers).
+
+HOW TO CHANGE TARGET PRIORITY:
+  - In-Game UI: Select any tower and click the Priority Dropdown in the Right Inspector.
+  - Keyboard Shortcut: Select a tower and press [T] or [Tab] to cycle through priorities.
+
+TACTICAL RECOMMENDATIONS:
+  - Archer Snipers -> Set to STRONGEST or FASTEST to pick off high-threat targets.
+  - Heavy Cannons  -> Set to FIRST to hit the dense lead cluster.
+  - Frost Obelisks -> Set to FIRST to ensure frontrunners are chilled immediately.
+
+================================================================================
+9. SPECIAL POWERS & TACTICAL ABILITIES
+================================================================================
+In addition to towers, players command 4 universal tactical abilities:
+
+[Q] METEOR STRIKE
+  - Activation: Press [Q] and Left-Click anywhere on the battlefield.
+  - Cost: 100 Gold | Cooldown: 45 Seconds
+  - Effect: Calls down a colossal flaming meteor dealing 400 Fire Magic Damage across
+    a 120px radius and stunning survivors for 1.5 seconds. Effective against Titan bosses.
+
+[W] GLACIAL BLIZZARD
+  - Activation: Press [W] (Instant Global Cast).
+  - Cost: 125 Gold | Cooldown: 60 Seconds
+  - Effect: Freezes the entire battlefield, applying a 80% Slow to all active creeps
+    for 6.0 seconds.
+
+[E] OVERCHARGE GRID
+  - Activation: Press [E] (Instant Global Cast).
+  - Cost: 150 Gold | Cooldown: 75 Seconds
+  - Effect: Electrifies all placed towers, granting +50% Attack Speed and +25% Bonus Damage
+    for 8.0 seconds.
+
+[R] EMERGENCY REPAIR
+  - Activation: Press [R] (Instant Cast).
+  - Cost: 200 Gold | Cooldown: 120 Seconds
+  - Effect: Chunnels divine energy to restore +25 HP to your Nexus Base (cannot exceed max HP).
+
+* Cooldown Timers: Displayed on the top/bottom HUD ability bar with countdown overlays.
+
+================================================================================
+10. ENEMY COMPENDIUM & BEASTIARY
+================================================================================
+
++---------------------+------+-------+-------+----+--------+-----------+--------+
+| ENEMY NAME          | TYPE | BASE  | SPEED |ARM | MR | BOUNTY | NEXUS DMG | FLYING |
+|                     |      | HP    |(PX/S) |    |(%) | (GOLD) | (ON BREACH|        |
++---------------------+------+-------+-------+----+--------+-----------+--------+
+| Skittering Larva    |SWARM | 60    | 150   | 0  | 0% | 8g     | 1 HP      | No     |
+| Goblin Marauder     |GOBLIN| 120   | 110   | 15 | 10%| 15g    | 1 HP      | No     |
+| Orcish Juggernaut   |ORC   | 350   | 70    | 60 | 15%| 35g    | 2 HP      | No     |
+| Dread Ironclad      |KNIGHT| 600   | 55    | 120| 25%| 55g    | 3 HP      | No     |
+| Aetherial Construct |GOLEM | 450   | 85    | 20 | 80%| 45g    | 2 HP      | No     |
+| Shadow Wyvern       |WYVERN| 200   | 135   | 30 | 30%| 28g    | 2 HP      | YES ✈  |
+| Gargantuan Titan    |TITAN | 3200  | 45    | 140| 60%| 300g   | 10 HP     | No     |
++---------------------+------+-------+-------+----+--------+-----------+--------+
+
+BREACH MECHANIC:
+  When an enemy reaches the blue Nexus tile, it deals its specified Nexus Damage
+  and immediately disappears from the battlefield.
+
+================================================================================
+11. COMBAT & DAMAGE MATHEMATICS (WITH NUMERICAL EXAMPLES)
+================================================================================
+
+1. PHYSICAL DAMAGE & ARMOR DIMINISHING RETURNS:
+     Reduction % = Armor / (Armor + 100)
+     Final Damage = Raw Damage * (1 - Reduction %)
+
+     * Example A: Archer deals 100 Physical Damage to an enemy with 100 Armor.
+       Reduction = 100 / (100 + 100) = 50%
+       Final Damage = 100 * (1 - 0.50) = 50 Damage.
+
+     * Example B: Archer deals 100 Physical Damage to an enemy with 25 Armor.
+       Reduction = 25 / (25 + 100) = 20%
+       Final Damage = 100 * (1 - 0.20) = 80 Damage.
+
+2. MAGICAL DAMAGE & MAGIC RESISTANCE (MR):
+     Reduction % = min(90%, MR) / 100
+     Final Damage = Raw Damage * (1 - Reduction %)
+
+     * Example: Arcane Spire deals 200 Magic Damage to a Golem with 80% MR.
+       Reduction = 80%
+       Final Damage = 200 * (1 - 0.80) = 40 Damage.
+
+3. LIGHTNING DAMAGE (HYBRID PENETRATION):
+     Ignores 50% of the target's Armor and Magic Resistance!
+     Effective Armor = Armor * 0.50
+
+     * Example: Tesla Coil deals 100 Lightning Damage to a Dread Ironclad with 120 Armor.
+       Effective Armor = 120 * 0.50 = 60 Armor.
+       Reduction = 60 / (60 + 100) = 37.5%
+       Final Damage = 100 * (1 - 0.375) = 62.5 Damage (instead of 45.4).
+
+4. FROST CHILL DAMAGE SYNERGY:
+     Frost attacks deal standard damage, PLUS an automatic +25% multiplicative
+     bonus damage if the target is ALREADY slowed by ANY frost source!
+     Final Frost Damage = Raw Damage * 1.25 * (1 - Armor Reduction)
+
+5. TRUE DAMAGE:
+     Bypasses 100% of Armor and Magic Resistance (Pure unmitigated HP loss).
+
+================================================================================
+12. STATUS EFFECTS & CROWD CONTROL RULES
+================================================================================
+- SLOW (Frost / Abilities):
+    Reduces enemy movement speed by specified percentage.
+    * Stacking Rule: Slows from multiple towers do NOT additively stack; instead,
+      the HIGHEST slow percentage takes priority and refreshes duration.
+- STUN (Tesla / Frost Tier 4 / Meteor):
+    Completely halts enemy movement (0 px/s).
+    * Repeated Stuns refresh the stun timer.
+    * Boss Titan Stun Resistance: Bosses possess 50% Tenacity (Stun durations are halved).
+- BURN (DoT Magic Damage):
+    Deals ticking magic damage every 500ms for duration.
+    * Respected by Magic Resistance.
+    * Applying a new burn refreshes the timer.
+- ARMOR SHRED (Void Singularity):
+    Reduces the enemy's effective Armor and Magic Resistance by 35% to 60%.
+    Allows physical snipers and cannons to deal near-true damage!
+
+================================================================================
+13. WAVE GENERATION & MATHEMATICAL SCALING SYSTEM
+================================================================================
+Waves scale infinitely using deterministic mathematical curves:
+
+1. HEALTH SCALING:
+     HP(Wave, Players) = BaseHP * [1 + 0.22*(Wave - 1) + 0.04*(Wave - 1)^1.5] * [1 + 0.60*(Players - 1)]
+     * Wave 1 Goblin: 120 HP
+     * Wave 10 Goblin (Solo): 120 * (1 + 1.98 + 1.08) = 487 HP
+     * Wave 20 Goblin (Solo): 120 * (1 + 4.18 + 3.31) = 1,019 HP
+
+2. ARMOR & MR SCALING:
+     Armor(Wave) = BaseArmor * [1 + 0.08*(Wave - 1)]
+     MR(Wave) = min(85%, BaseMR * [1 + 0.05*(Wave - 1)])
+
+3. BOUNTY GOLD SCALING:
+     Bounty(Wave) = BaseBounty * [1 + 0.04*(Wave - 1)]
+     * Wave 1 Bounty: 15g
+     * Wave 20 Bounty: 15 * (1 + 0.76) = 26g
+
+4. BOSS CADENCE:
+     Gargantuan Titan Bosses spawn every 5 waves (Wave 5, 10, 15, 20, 25, 30...).
+     Boss waves feature high-tier elite escorts alongside the Titan.
+
+5. WAVE TIMING:
+     - 10-Second preparation timer between waves.
+     - Players can build, upgrade, sell, and inspect during preparation.
+     - Clicking "Start Wave Early" instantly spawns the wave and grants +15g Early Bonus.
+
+================================================================================
+14. ECONOMY, GOLD MANAGEMENT, INTEREST & BONUSES
+================================================================================
+- Starting Gold: 450 Gold.
+
+- Compound Interest Formula:
+    At the end of each cleared wave, you receive 10% interest on your unspent gold,
+    capped at 50 Gold maximum.
+    * 200 Gold held -> +20 Gold Interest
+    * 350 Gold held -> +35 Gold Interest
+    * 500+ Gold held -> +50 Gold Max Interest
+
+- Wave Clear Bonus:
+    Awarded automatically upon eliminating the last creep of a wave:
+    Clear Bonus = 50g + (10g * WaveNumber)
+    * Wave 5 Boss Clear Bonus: +150g extra flat bonus.
+
+- Flawless Streak Bonus:
+    Clearing consecutive waves without taking any Nexus damage adds a streak multiplier:
+    +15g per streak count (up to +75g max streak bonus).
+
+- Tower Selling Refund Formula:
+    Refund = floor(Total Invested Gold * 0.75) (75% Refund)
+    * Example: Base Cannon (200g) + Tier 2 Howitzer (200g) = 400g Invested.
+      Sell Refund = 400 * 0.75 = 300 Gold.
+    * Selling removes the tower immediately and reopens the tile for construction.
+    * Selling does NOT penalize your match score.
+
+================================================================================
+15. CO-OP MULTIPLAYER RULES & TEAM DYNAMICS
+================================================================================
+- Shared Nexus: All players defend a single, shared Nexus Base. If Nexus HP drops
+  to 0, the entire squad is defeated simultaneously.
+- Shared Creep Bounties: Every player in the room receives 100% of the gold bounty
+  whenever an enemy is slain, regardless of who dealt the killing blow!
+- Independent Gold & Building: Each player maintains their own gold treasury and
+  owns the towers they build. Teammates cannot sell or modify your towers.
+- Strategic Specialization:
+    * Player 1: Crowd Control & Debuff (Frost Obelisks + Void Singularity Spire).
+    * Player 2: Heavy Physical Artillery (Earthshaker Cannons + Gatling Archers).
+    * Player 3/4: Command Bastion Auras + Tesla chain stuns.
+
+================================================================================
+16. 1v1 PVP DUEL RULES & CREEP SENDING ECONOMY
+================================================================================
+In 1v1 PvP, players compete on mirrored battlefields to destroy the rival's Nexus:
+
+- Sending Creeps:
+    Spend gold from your action bar to summon monsters directly into your opponent's lane.
+    * Send Skittering Larva: 40g (Increases your passive Wave Income by +5g)
+    * Send Orc Brute: 120g (Increases your passive Wave Income by +15g)
+    * Send Shadow Wyvern: 180g (Increases your passive Wave Income by +22g)
+    * Send Armoured Knight: 250g (Increases your passive Wave Income by +35g)
+- Passive Income Tick:
+    At the end of each wave, you receive your accumulated Passive Wave Income
+    in addition to normal wave clear bonuses.
+- Opponent Bounty:
+    Your opponent receives the standard bounty gold when defeating your sent creeps.
+- Victory Condition:
+    First player whose Nexus reaches 0 HP loses immediately. The survivor wins +ELO.
+
+================================================================================
+17. FLYING MECHANICS & SPECIAL TARGETING INTERACTIONS
+================================================================================
+- Shadow Wyverns possess the FLYING property:
+    * They ignore all maze obstacles, ground walls, and winding paths.
+    * They travel in a direct straight line from the spawn portal to your Nexus.
+- Tower Anti-Air Compatibility:
+    * Archer Watchtowers : CAN attack Flying (Excellent high-velocity counter).
+    * Arcane Spires      : CAN attack Flying (Magic burst hits air).
+    * Tesla Coils        : CAN attack Flying (Lightning arcs chain into air).
+    * Frost Obelisks     : CAN attack Flying (Chills air targets).
+    * Heavy Cannons      : CANNOT attack Flying (Ground-only mortar artillery).
+    * Command Bastions   : Support only (No direct attacks).
+
+================================================================================
+18. VICTORY, DEFEAT & ENDLESS SURVIVAL CONDITIONS
+================================================================================
+- Standard Match Victory:
+    * Reaching and defeating the final Titan on Wave 30 completes the standard campaign.
+- Endless Mode:
+    * After Wave 30, players can choose to continue into Infinite Endless Mode to set
+      global leaderboard records.
+- Defeat Condition:
+    * Nexus Health reaches 0 HP.
+
+================================================================================
+19. REWARDS, XP, GEMS, SHARDS & PROGRESSION
+================================================================================
+At the conclusion of each match, players receive account rewards:
+  - Account XP: 10 XP per wave survived + 250 XP for match victory.
+  - Realm Gems: 5 Gems per 5 waves survived + 50 Gems for Boss wave clears.
+  - Cosmetic Shards: Awarded for leveling up account tiers.
+
+================================================================================
+20. METAGAME STORE, COSMETICS & LOADOUTS
+================================================================================
+Visit the in-game Store tab to customize your tactical appearance:
+  - Tower Skins: Elven Sentinel Archer, Nether Void Spire, Steampunk Howitzer,
+    Mecha Tesla, Glacial Frost Crystal.
+  - Avatar Frames: Bronze Recruit, Silver Veteran, Diamond Grandmaster, Celestial Titan.
+  - Map Themes: Forest Crossing, Molten Caldera, Crystal Caverns.
+
+================================================================================
+21. RANKED LEADERBOARDS & ELO (K=32) FORMULA
+================================================================================
+Ranked matches adjust player ratings using the official FIDE ELO formula (K=32):
+  Expected Score Ea = 1 / [1 + 10^((Rb - Ra) / 400)]
+  New Rating Ra' = Ra + 32 * (ActualScore - Ea)
+
+LEADERBOARD CATEGORIES:
+  1. ELO Rating (Top 1v1 PvP Duelists)
+  2. Total Victories (Most matches won)
+  3. Highest Wave Record (Endless survival champions)
+
+================================================================================
+22. FREQUENTLY ASKED QUESTIONS (FAQ) & TROUBLESHOOTING
+================================================================================
+Q: Why can't I place a tower on a ground tile?
+A: Either you have insufficient gold, an entity already occupies the tile, or placing
+   the tower would violate the Anti-Blocking Law by sealing off all routes to the Nexus.
+
+Q: What happens if I disconnect mid-match?
+A: RealmForge's authoritative server saves your player session. Simply refresh
+   http://localhost:3000 to reconnect; the client will download the authoritative
+   state snapshot and resume without penalty.
+
+Q: Does selling a tower restore 100% of my gold?
+A: No, selling refunds 75% of the total gold invested (Base cost + all upgrade costs).
+
+================================================================================
+             COMMAND THE FORGE. UNLEASH THE ARSENAL. DEFEND THE REALM!
+================================================================================
