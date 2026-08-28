@@ -86,6 +86,12 @@ export interface TowerComponent extends IComponent {
   totalDamageDealt: number;
   gridX: number;
   gridY: number;
+  branch?: 'A' | 'B';
+  totalInvestedGold: number;
+  splashRadius: number;
+  chainCount: number;
+  chainDecay: number;
+  effects: StatusEffect[];
 }
 
 export enum EnemyType {
@@ -108,6 +114,8 @@ export interface EnemyComponent extends IComponent {
   bountyXp: number;
   damageToNexus: number;
   isFlying: boolean;
+  isBoss: boolean;
+  speed: number;
   reachedNexus: boolean;
 }
 

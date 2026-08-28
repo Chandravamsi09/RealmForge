@@ -34,6 +34,19 @@ export class WaveSpawnerSystem extends System {
     super();
   }
 
+  setPlayerCount(count: number): void {
+    this.playerCount = Math.max(1, count);
+  }
+
+  startWaveEarly(): boolean {
+    if (this.waveState === WaveState.WAITING_TO_START) {
+      this.prepTimerRemainingMs = 0;
+      this.startNextWave();
+      return true;
+    }
+    return false;
+  }
+
   startNextWave(): void {
     this.currentWaveIndex++;
     this.currentWaveDef = WaveGenerator.generateWave(this.currentWaveIndex);
@@ -158,6 +171,8 @@ export class WaveSpawnerSystem extends System {
       bountyXp: scaledStats.bountyXp,
       damageToNexus: scaledStats.damageToNexus,
       isFlying: scaledStats.isFlying,
+      isBoss: scaledStats.type === 'BOSS_TITAN',
+      speed: scaledStats.baseSpeed,
       reachedNexus: false,
     } as EnemyComponent);
 

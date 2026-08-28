@@ -43,7 +43,7 @@ export class EnemyMovementSystem extends System {
 
       if (isStunned) continue;
 
-      const baseSpeed = 80; // Standard 80 px/sec
+      const baseSpeed = enemy.speed || 80;
       const moveDistance = baseSpeed * speedMultiplier * dtSeconds;
 
       const targetWaypoint = pathFollower.waypoints[pathFollower.currentWaypointIndex];

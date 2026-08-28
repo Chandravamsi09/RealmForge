@@ -28,9 +28,9 @@ export class TowerTargetingSystem extends System {
         y: transform.y,
         health: health.current,
         maxHealth: health.max,
-        speed: 100,
+        speed: enemy.speed || 100,
         pathProgress,
-        isFlying: enemy.isFlying,
+        isFlying: !!enemy.isFlying,
       });
     }
 
@@ -46,13 +46,18 @@ export class TowerTargetingSystem extends System {
       // Skip support barracks (passive aura only)
       if (tower.fireRate <= 0) continue;
 
+      // Filter candidates for ground-only towers (Heavy Cannon cannot target flying enemies)
+      const validCandidates = tower.towerType === 'CANNON'
+        ? candidates.filter(c => !c.isFlying)
+        : candidates;
+
       // Select target
       const targetId = TargetAcquisition.selectTarget(
         transform.x,
         transform.y,
         tower.range,
-        tower.targetPriority,
-        candidates,
+        tower.targetPriority || 'FIRST',
+        validCandidates,
       );
       tower.targetEntityId = targetId;
 
@@ -96,12 +101,12 @@ export class TowerTargetingSystem extends System {
       speed: 400, // 400 px/sec
       damage: tower.damage,
       damageType: tower.damageType,
-      splashRadius: config.splashRadius,
-      chainCount: config.chainCount,
-      chainDecay: config.chainDecay,
-      chainsRemaining: config.chainCount,
+      splashRadius: tower.splashRadius !== undefined ? tower.splashRadius : config.splashRadius,
+      chainCount: tower.chainCount !== undefined ? tower.chainCount : config.chainCount,
+      chainDecay: tower.chainDecay !== undefined ? tower.chainDecay : config.chainDecay,
+      chainsRemaining: tower.chainCount !== undefined ? tower.chainCount : config.chainCount,
       pierceRemaining: 0,
-      effectsToApply: [...config.baseEffects],
+      effectsToApply: tower.effects && tower.effects.length > 0 ? [...tower.effects] : [...config.baseEffects],
     };
 
     world.addComponent(projId, projectileComponent);
